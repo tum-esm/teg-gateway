@@ -1,7 +1,7 @@
 Main Loop
 =========
 
-This page explains how the ThingsBoard Edge Gateway operates once it is running,
+This page explains how the TEG Gateway operates once it is running,
 from startup through normal operation and shutdown.
 
 Overview

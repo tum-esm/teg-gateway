@@ -1,4 +1,4 @@
-Thingsboard-edge-gateway Installation
+TEG-gateway Installation
 =====================================
 This guide details installation of the thingsboard-edge-gateway project on an IoT device. It assumes a thingsboard
 server has been set up already and can be connected to via MQTT.
@@ -39,10 +39,10 @@ Compiling from source:
     sudo make install
     curl -sSL https://install.python-poetry.org/ | python3.12 -
 
-Download Thingsboard Edge Gateway
+Download TEG Gateway
 -----------------------------------
 
-You can download the latest release of ThingsBoard Edge Gateway from the GitHub repository:
+You can download the latest release of TEG Gateway from the GitHub repository:
 
 .. code-block:: bash
 
