@@ -6,11 +6,6 @@
 Welcome to the Thingsboard Edge Gateway Documentation
 =====================================================
 
-.. note::
-
-   This project is under active development.
-
-
 
 .. toctree::
    :maxdepth: 2
