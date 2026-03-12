@@ -1,3 +1,4 @@
+.. _remote-software-updates:
 Remote Software Update
 ======================
 
