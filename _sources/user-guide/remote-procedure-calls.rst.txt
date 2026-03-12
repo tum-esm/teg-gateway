@@ -2,19 +2,19 @@
 Remote Procedure Calls
 ======================
 
-The Edge Gateway supports *Remote Procedure Calls (RPC)* via ThingsBoard's built-in RPC mechanism. RPCs allow external applications, automation scripts, or ThingsBoard dashboards to invoke predefined commands on the Edge Gateway controller and receive immediate feedback.
+The TEG gateway supports *Remote Procedure Calls (RPC)* via ThingsBoard's built-in RPC mechanism. RPCs allow external applications, automation scripts, or ThingsBoard dashboards to invoke predefined commands on the TEG gateway controller and receive immediate feedback.
 
 This mechanism is primarily intended for operational control, diagnostics, and maintenance tasks that must be executed on-demand without direct access to the device.
 
-RPCs follow a *controller-executed* model. All RPC commands are handled by the Edge Gateway controller, while the Edge Gateway runtime acts as a secure transport and execution environment. This separation ensures that operational commands can be executed without interrupting the gateway process itself, unless explicitly intended.
+RPCs follow a *controller-executed* model. All RPC commands are handled by the TEG gateway controller, while the TEG gateway runtime acts as a secure transport and execution environment. This separation ensures that operational commands can be executed without interrupting the gateway process itself, unless explicitly intended.
 
 
 Overview
 --------
 
-ThingsBoard provides an RPC widget that acts as an interactive console within dashboards. Using this widget, users can send RPC requests to a specific Edge Gateway device and inspect the returned responses in real time.
+ThingsBoard provides an RPC widget that acts as an interactive console within dashboards. Using this widget, users can send RPC requests to a specific TEG gateway device and inspect the returned responses in real time.
 
-RPCs are executed by the Edge Gateway controller and are restricted to a predefined set of supported commands to ensure safe and controlled operation. Unsupported or unknown RPC methods are rejected and return an error response without executing any action on the device.
+RPCs are executed by the TEG gateway controller and are restricted to a predefined set of supported commands to ensure safe and controlled operation. Unsupported or unknown RPC methods are rejected and return an error response without executing any action on the device.
 
 For a general introduction to ThingsBoard RPCs, refer to the official documentation:
 https://thingsboard.io/docs/user-guide/rpc/
@@ -29,7 +29,7 @@ https://thingsboard.io/docs/user-guide/rpc/
 Built-in RPC Command: ``list``
 ------------------------------
 
-The Edge Gateway controller exposes a built-in RPC command named ``list``. This command returns a human-readable list of all RPC commands currently supported by the controller, including a short description of each command and its expected parameters.
+The TEG gateway controller exposes a built-in RPC command named ``list``. This command returns a human-readable list of all RPC commands currently supported by the controller, including a short description of each command and its expected parameters.
 
 This command is useful for quickly verifying controller capabilities and for debugging RPC availability after software updates.
 
@@ -58,7 +58,7 @@ Example response:
 Supported RPC Commands
 ----------------------
 
-The following RPC commands are currently supported by the Edge Gateway controller. Command availability may depend on the deployed controller version.
+The following RPC commands are currently supported by the TEG gateway controller. Command availability may depend on the deployed controller version.
 
 
 ``ping``
@@ -80,7 +80,7 @@ Performs a simple connectivity check.
 ``reboot``
 ^^^^^^^^^^
 
-Reboots the Edge Gateway host system.
+Reboots the TEG gateway host system.
 
 **Description**
   Performs a full system reboot of the device.
@@ -96,7 +96,7 @@ Reboots the Edge Gateway host system.
 ``shutdown``
 ^^^^^^^^^^^^
 
-Shuts down the Edge Gateway host system.
+Shuts down the TEG gateway host system.
 
 **Description**
   Powers off the device gracefully.
@@ -111,7 +111,7 @@ Shuts down the Edge Gateway host system.
 ``exit``
 ^^^^^^^^
 
-Terminates the Edge Gateway process.
+Terminates the TEG gateway process.
 
 **Description**
   Stops the gateway process, which triggers an automatic restart by Docker.
@@ -128,12 +128,12 @@ Terminates the Edge Gateway process.
 ``restart_controller``
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Restarts the Edge Gateway controller container.
+Restarts the TEG gateway controller container.
 
 **Description**
   Stops and restarts the controller Docker container without affecting the gateway runtime.
 
-  This command does not restart the Edge Gateway process itself. Telemetry buffering, file synchronization, and connectivity to ThingsBoard remain active during the controller restart.
+  This command does not restart the TEG gateway process itself. Telemetry buffering, file synchronization, and connectivity to ThingsBoard remain active during the controller restart.
 
 **Parameters**
   None
@@ -164,7 +164,7 @@ Initializes file-related client attributes required for remote file management.
 ``run_command``
 ^^^^^^^^^^^^^^^
 
-Executes an arbitrary command on the Edge Gateway host.
+Executes an arbitrary command on the TEG gateway host.
 
 **Description**
   Executes a shell command on the device and returns the command output.
@@ -213,7 +213,7 @@ Discards archived telemetry messages.
 Security Considerations
 -----------------------
 
-RPC commands provide powerful control over Edge Gateway devices. It is strongly recommended to:
+RPC commands provide powerful control over TEG gateway devices. It is strongly recommended to:
 
 - Restrict RPC access to trusted users and dashboards only
 - Avoid exposing sensitive commands such as ``run_command`` to non-administrative users

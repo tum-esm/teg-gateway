@@ -1,7 +1,7 @@
 Setup
 =====
 
-How to set up the edge gateway on an IoT device once it has been installed.
+How to set up the TEG gateway on an IoT device once it has been installed.
 
 Docker
 ------
