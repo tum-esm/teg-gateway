@@ -1,3 +1,4 @@
+.. _remote-procedure-calls:
 Remote Procedure Calls
 ======================
 

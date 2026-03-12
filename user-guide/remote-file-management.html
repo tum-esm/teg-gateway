@@ -82,7 +82,7 @@
           <div class="body" role="main">
             
   <section id="remote-file-management">
-<h1>Remote File Management<a class="headerlink" href="#remote-file-management" title="Link to this heading">¶</a></h1>
+<span id="id1"></span><h1>Remote File Management<a class="headerlink" href="#remote-file-management" title="Link to this heading">¶</a></h1>
 <p>The Edge Gateway supports remote file management via ThingsBoard shared attributes. This mechanism allows configuration and system files on the gateway to be created, updated, monitored, and synchronized in a controlled and traceable way. The approach is designed to be robust against intermittent connectivity and to support both read-only mirroring and active configuration management.</p>
 <p>The remote file management mechanism follows a <em>server-authoritative</em> model. ThingsBoard shared attributes define the desired state of all managed files. The Edge Gateway never propagates local file changes upstream, except for mirroring file content and reporting synchronization status.</p>
 <section id="shared-attributes">

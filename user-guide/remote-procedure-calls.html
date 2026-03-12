@@ -82,7 +82,7 @@
           <div class="body" role="main">
             
   <section id="remote-procedure-calls">
-<h1>Remote Procedure Calls<a class="headerlink" href="#remote-procedure-calls" title="Link to this heading">¶</a></h1>
+<span id="id1"></span><h1>Remote Procedure Calls<a class="headerlink" href="#remote-procedure-calls" title="Link to this heading">¶</a></h1>
 <p>The Edge Gateway supports <em>Remote Procedure Calls (RPC)</em> via ThingsBoard’s built-in RPC mechanism. RPCs allow external applications, automation scripts, or ThingsBoard dashboards to invoke predefined commands on the Edge Gateway controller and receive immediate feedback.</p>
 <p>This mechanism is primarily intended for operational control, diagnostics, and maintenance tasks that must be executed on-demand without direct access to the device.</p>
 <p>RPCs follow a <em>controller-executed</em> model. All RPC commands are handled by the Edge Gateway controller, while the Edge Gateway runtime acts as a secure transport and execution environment. This separation ensures that operational commands can be executed without interrupting the gateway process itself, unless explicitly intended.</p>

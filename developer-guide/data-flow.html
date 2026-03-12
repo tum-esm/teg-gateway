@@ -83,6 +83,28 @@
             
   <section id="data-flows">
 <h1>Data Flows<a class="headerlink" href="#data-flows" title="Link to this heading">¶</a></h1>
+<a class="reference internal image-reference" href="../_images/data-flow.png"><img alt="ThingsBoard Edge Gateway data flow diagram" class="align-center" src="../_images/data-flow.png" style="width: 80%;" />
+</a>
+<p>Several data flows involve the Gateway as the central component:</p>
+<ol class="arabic">
+<li><p><strong>Device Data Flow</strong></p>
+<p>Data collected by the Controller is forwarded by the Gateway to the
+ThingsBoard server via MQTT, where it is archived and made available
+for monitoring and analysis.</p>
+</li>
+<li><p><strong>Remote File Management</strong></p>
+<p>The Gateway enables remote file management on edge devices. Files can
+be uploaded to or downloaded from devices using ThingsBoard Shared
+Attributes.</p>
+<p>See <a class="reference internal" href="../user-guide/remote-file-management.html#remote-file-management"><span class="std std-ref">Remote File Management</span></a> for details.</p>
+</li>
+<li><p><strong>Remote Software Updates</strong></p>
+<p>The Gateway supports over-the-air (OTA) software updates that allow
+new controller versions to be deployed via Docker. Updates are
+triggered and managed through the ThingsBoard Web UI.</p>
+<p>See <a class="reference internal" href="../user-guide/remote-software-update.html#remote-software-updates"><span class="std std-ref">Remote Software Update</span></a> for details.</p>
+</li>
+</ol>
 </section>
 
 

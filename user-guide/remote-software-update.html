@@ -82,7 +82,7 @@
           <div class="body" role="main">
             
   <section id="remote-software-update">
-<h1>Remote Software Update<a class="headerlink" href="#remote-software-update" title="Link to this heading">¶</a></h1>
+<span id="remote-software-updates"></span><h1>Remote Software Update<a class="headerlink" href="#remote-software-update" title="Link to this heading">¶</a></h1>
 <p>The <em>Remote Software Update</em> feature allows you to deploy new versions of the Edge Gateway controller software to devices using ThingsBoard’s OTA update mechanism. This enables the rollout of bug fixes, performance improvements, and new features without requiring physical access to deployed hardware.</p>
 <p>OTA update packages reference version tags or commit hashes from the controller’s GitHub repository. Once an OTA package is created and assigned to a device or device profile, Edge Gateway devices automatically receive the update, download the corresponding source code, build a Docker image locally if required, and deploy the new controller version.</p>
 <p>The remote software update mechanism follows a <em>controller-only update model</em>. OTA updates apply exclusively to the Edge Gateway controller software and never update or restart the Edge Gateway runtime itself. This design ensures that connectivity, telemetry buffering, and management functions remain available throughout the update process.</p>
