@@ -1,6 +1,6 @@
 TEG-gateway Installation
 =====================================
-This guide details installation of the thingsboard-edge-gateway project on an IoT device. It assumes a thingsboard
+This guide details installation of the teg-gateway project on an IoT device. It assumes a thingsboard
 server has been set up already and can be connected to via MQTT.
 
 Install Dependencies
@@ -47,7 +47,7 @@ You can download the latest release of TEG Gateway from the GitHub repository:
 .. code-block:: bash
 
     cd $HOME
-    git clone https://github.com/tum-esm/thingsboard-edge-gateway.git
+    git clone https://github.com/tum-esm/teg-gateway.git
 
 
 

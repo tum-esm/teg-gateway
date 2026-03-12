@@ -2,7 +2,7 @@ Demo
 ====
 
 This docker-based demo deployment runs a local ThingsBoard instance together with the edge gateway and a simulated controller.
-It is meant for showcasing the thingsboard-edge-gateway's features in an easy to set up example environment.
+It is meant for showcasing the teg-gateway's features in an easy to set up example environment.
 
 What the demo includes
 ----------------------
