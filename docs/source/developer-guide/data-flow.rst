@@ -2,7 +2,7 @@ Data Flows
 ==========
 
 .. image:: ../_static/images/data-flow.png
-   :alt: ThingsBoard Edge Gateway data flow diagram
+   :alt: TEG Gateway data flow diagram
    :width: 80%
    :align: center
 

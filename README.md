@@ -1,20 +1,20 @@
-# ThingsBoard Edge Gateway
+# Telemetry Edge Gateway (TEG Gateway)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/release/python-3120/)
-[![mypy](https://github.com/tum-esm/thingsboard-edge-gateway/actions/workflows/test-gateway.yaml/badge.svg)](https://github.com/tum-esm/thingsboard-edge-gateway/actions)
-[![Documentation](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://tum-esm.github.io/thingsboard-edge-gateway/)
+[![mypy](https://github.com/tum-esm/teg-gateway/actions/workflows/test-gateway.yaml/badge.svg)](https://github.com/tum-esm/teg-gateway/actions)
+[![Documentation](https://img.shields.io/badge/docs-online-brightgreen.svg)](https://tum-esm.github.io/teg-gateway/)
 <!-- [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11111.svg)](https://doi.org/10.5281/zenodo.11111) -->
 
 ## Overview
 
-The **ThingsBoard Edge Gateway** is a lightweight runtime that connects locally
+The **TEG Gateway** is a lightweight runtime that connects locally
 deployed edge controllers to a central [ThingsBoard](https://thingsboard.io/docs/) instance. It acts as a
 reliable communication, management, and supervision layer between edge devices
 and the cloud. 
 
 The gateway is designed for unattended, long-term operation in constrained
-environments. It is is typically deployed on a small Linux-based system
+environments. It is typically deployed on a small Linux-based system
 (e.g. a Raspberry Pi) and runs continuously as a
 background service. It supports remote configuration, controller software updates,
 and operational control without requiring physical access to the device.
@@ -31,7 +31,7 @@ and operational control without requiring physical access to the device.
 
 ## Architecture Overview
 
-The ThingsBoard Edge Gateway follows a deliberately simple and robust architecture
+The TEG Gateway follows a deliberately simple and robust architecture
 that separates **infrastructure responsibilities** from **application logic**.
 
 At a high level, the system consists of two cooperating components:
@@ -54,15 +54,15 @@ remote configuration, and recovery actions remain available at all times.
 A more detailed description of the runtime behavior and interactions between these
 components is available in the documentation:
 
-- [Remote File Management](https://tum-esm.github.io/thingsboard-edge-gateway/user-guide/remote-file-management)
-- [Remote Software Updates](https://tum-esm.github.io/thingsboard-edge-gateway/user-guide/remote-software-update)
-- [Remote Procedure Calls](https://tum-esm.github.io/thingsboard-edge-gateway/user-guide/remote-procedure-calls)
+- [Remote File Management](https://tum-esm.github.io/teg-gateway/user-guide/remote-file-management)
+- [Remote Software Updates](https://tum-esm.github.io/teg-gateway/user-guide/remote-software-update)
+- [Remote Procedure Calls](https://tum-esm.github.io/teg-gateway/user-guide/remote-procedure-calls)
 
 
 ## Development and Type Checking
 
 Setup and installation are described in the
-[Installation Guide](https://tum-esm.github.io/thingsboard-edge-gateway/getting-started).  
+[Installation Guide](https://tum-esm.github.io/teg-gateway/getting-started).  
 The following steps are intended for local development.
 
 Install development dependencies:
@@ -83,7 +83,7 @@ bash scripts/run_mypy.sh
 
 ## Context and Origin
 
-The ThingsBoard Edge Gateway was originally developed as part of the
+The TEG Gateway was originally developed as part of the
 [**ACROPOLIS** CO₂ sensor network](https://amt.copernicus.org/articles/19/745/2026/) within the ICOS Cities framework. It is used
 as the communication and management layer for the
 [ACROPOLIS-edge](https://github.com/tum-esm/ACROPOLIS-edge) controller software

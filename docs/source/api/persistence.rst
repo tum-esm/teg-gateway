@@ -1,7 +1,7 @@
 Local Data Persistence
 ======================
 
-This section documents the local persistence layer used by the Edge Gateway for
+This section documents the local persistence layer used by the TEG Gateway for
 buffering, archiving, and recovery.
 
 SQLite Abstraction

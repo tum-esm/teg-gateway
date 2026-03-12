@@ -2,7 +2,7 @@ Over-the-Air Updates
 ==========================
 
 This section documents the OTA software update mechanism used to update the
-controller software independently of the Edge Gateway runtime.
+controller software independently of the TEG Gateway runtime.
 
 Docker Client
 -------------

@@ -1,13 +1,13 @@
 Demo
 ====
 
-This docker-based demo deployment runs a local ThingsBoard instance together with the edge gateway and a simulated controller.
-It is meant for showcasing the thingsboard-edge-gateway's features in an easy to set up example environment.
+This docker-based demo deployment runs a local ThingsBoard instance together with the TEG gateway and a simulated controller.
+It is meant for showcasing the teg-gateway's features in an easy to set up example environment.
 
 What the demo includes
 ----------------------
 - ThingsBoard CE + Postgres
-- Edge gateway container built from this repository
+- TEG gateway container built from this repository
 - Example controller that generates simulated sensor data
 - Optional TLS reverse proxy (nginx) with a self-signed certificate
 - Example thingsboard dashboard for visualizing the simulated sensor data
