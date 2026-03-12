@@ -1,4 +1,4 @@
-"""Main entry point for the ThingsBoard Edge Gateway.
+"""Main entry point for the TEG Gateway.
 
 This module implements the primary runtime loop of the Edge Gateway. It is
 responsible for initializing all subsystems, establishing communication with

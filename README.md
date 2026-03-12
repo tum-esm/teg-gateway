@@ -8,13 +8,13 @@
 
 ## Overview
 
-The **ThingsBoard Edge Gateway** is a lightweight runtime that connects locally
+The **TEG Gateway** is a lightweight runtime that connects locally
 deployed edge controllers to a central [ThingsBoard](https://thingsboard.io/docs/) instance. It acts as a
 reliable communication, management, and supervision layer between edge devices
 and the cloud. 
 
 The gateway is designed for unattended, long-term operation in constrained
-environments. It is is typically deployed on a small Linux-based system
+environments. It is typically deployed on a small Linux-based system
 (e.g. a Raspberry Pi) and runs continuously as a
 background service. It supports remote configuration, controller software updates,
 and operational control without requiring physical access to the device.
@@ -31,7 +31,7 @@ and operational control without requiring physical access to the device.
 
 ## Architecture Overview
 
-The ThingsBoard Edge Gateway follows a deliberately simple and robust architecture
+The TEG Gateway follows a deliberately simple and robust architecture
 that separates **infrastructure responsibilities** from **application logic**.
 
 At a high level, the system consists of two cooperating components:
@@ -83,7 +83,7 @@ bash scripts/run_mypy.sh
 
 ## Context and Origin
 
-The ThingsBoard Edge Gateway was originally developed as part of the
+The TEG Gateway was originally developed as part of the
 [**ACROPOLIS** CO₂ sensor network](https://amt.copernicus.org/articles/19/745/2026/) within the ICOS Cities framework. It is used
 as the communication and management layer for the
 [ACROPOLIS-edge](https://github.com/tum-esm/ACROPOLIS-edge) controller software
