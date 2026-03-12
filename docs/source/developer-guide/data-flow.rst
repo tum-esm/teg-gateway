@@ -7,10 +7,26 @@ Data Flows
    :align: center
 
 
-There are different data flows involving the Gateway as a central component. 
+Several data flows involve the Gateway as the central component:
 
-1. **Device data flow**: Data from collected by the Controller is forwarded and archived by the Gateway to the ThingsBoard server. 
+1. **Device Data Flow**
 
-2. **Remote File Mangement**: The Gateway can be used to manage files on the Edge devices. This includes uploading files to the devices, downloading files from the devices via ThingsBoard Shared Attributes. More details are available in the :ref:`remote-file-management` section of the documentation.
+   Data collected by the Controller is forwarded by the Gateway to the
+   ThingsBoard server via MQTT, where it is archived and made available
+   for monitoring and analysis.
 
-3. **Remote Software Updates**: The Gateway supports remote software updates (OTA) that allow users to spawn a new controller version via Docker. This feature is managed via the Thingsboard WebUI. And is described in detail in the :ref:`remote-software-updates` section of the documentation.
+2. **Remote File Management**
+
+   The Gateway enables remote file management on edge devices. Files can
+   be uploaded to or downloaded from devices using ThingsBoard Shared
+   Attributes.
+
+   See :ref:`remote-file-management` for details.
+
+3. **Remote Software Updates**
+
+   The Gateway supports over-the-air (OTA) software updates that allow
+   new controller versions to be deployed via Docker. Updates are
+   triggered and managed through the ThingsBoard Web UI.
+
+   See :ref:`remote-software-updates` for details.
