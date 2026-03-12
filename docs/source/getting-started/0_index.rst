@@ -9,6 +9,7 @@ This section describes how to install and set up both the thingsboard server sof
 
     1_system-requirements
     2_demo
-    3_installation/0_index.rst
+    3_thingsboard_server_installation
+    3_teg_gateway_installation
     4_setup
     5_setup-from-image
