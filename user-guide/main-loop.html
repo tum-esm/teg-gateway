@@ -91,11 +91,11 @@ from startup through normal operation and shutdown.</p>
 between the local controller, ThingsBoard, and local persistence components.</p>
 <p>The main loop is responsible for:</p>
 <ul class="simple">
-<li><p>Maintaining a persistent connection to ThingsBoard</p></li>
+<li><p>Maintaining a persistent MQTT connection to ThingsBoard</p></li>
 <li><p>Forwarding telemetry, logs, and status information</p></li>
 <li><p>Receiving and dispatching remote commands</p></li>
-<li><p>Supervising the controller process</p></li>
-<li><p>Ensuring local data durability during network interruptions</p></li>
+<li><p>Supervising the controller docker container</p></li>
+<li><p>Ensuring local data durability during network interruptions and/or system outages</p></li>
 </ul>
 <p>The loop is designed to run continuously and autonomously without user
 interaction.</p>
@@ -107,24 +107,25 @@ initialization phase:</p>
 <ul class="simple">
 <li><p>Command-line arguments are parsed</p></li>
 <li><p>Device identity and credentials are verified or provisioned</p></li>
-<li><p>Local databases used for buffering and archiving are opened</p></li>
-<li><p>The connection to ThingsBoard is established</p></li>
+<li><p>Local sqlite databases used for buffering and archiving are opened</p></li>
+<li><p>The MQTT connection to ThingsBoard is established</p></li>
 </ul>
-<p>Once initialization completes successfully, the gateway transitions into normal
-operation.</p>
+<p>Once initialization completes successfully, the gateway proceeds to endlessly loop through a sequential list of actions.</p>
 </section>
-<section id="steady-state-operation">
-<h2>Steady-State Operation<a class="headerlink" href="#steady-state-operation" title="Link to this heading">¶</a></h2>
+<section id="steady-state-operation-loop">
+<h2>Steady-State Operation (Loop)<a class="headerlink" href="#steady-state-operation-loop" title="Link to this heading">¶</a></h2>
 <p>During normal operation, the main loop continuously performs the following tasks:</p>
 <ul class="simple">
-<li><p>Publishes telemetry and log messages received from the controller</p></li>
 <li><p>Receives shared attribute updates and RPC commands from ThingsBoard</p></li>
+<li><p>Builds and starts the controller software docker container if needed</p></li>
+<li><p>Publishes telemetry and log messages received from the controller</p></li>
 <li><p>Triggers remote file synchronization and OTA updates when requested</p></li>
-<li><p>Monitors the health of the controller process</p></li>
-<li><p>Flushes buffered data when connectivity is available</p></li>
+<li><p>Monitors the health of the controller docker container</p></li>
+<li><p>Buffers outgoing and incoming messages in sqlite</p></li>
 </ul>
 <p>All of these activities are coordinated within the main loop to ensure predictable
 and deterministic behavior.</p>
+<p>See a detailed description here: <span class="xref std std-ref">_architecture</span></p>
 </section>
 <section id="failure-handling-and-resilience">
 <h2>Failure Handling and Resilience<a class="headerlink" href="#failure-handling-and-resilience" title="Link to this heading">¶</a></h2>
@@ -145,7 +146,6 @@ supervises its restart without terminating the main loop itself.</p>
 <ul class="simple">
 <li><p>Active connections are closed cleanly</p></li>
 <li><p>Local databases are flushed and closed</p></li>
-<li><p>The controller is stopped if running</p></li>
 </ul>
 <p>A forced shutdown is only triggered if graceful termination fails within a defined
 timeout.</p>
@@ -156,8 +156,6 @@ timeout.</p>
 <li><p>The main loop runs continuously as long as the TEG gateway process is active.</p></li>
 <li><p>Most user-facing features (RPCs, file management, OTA updates) are coordinated
 through this loop.</p></li>
-<li><p>In normal operation, no manual intervention is required once the gateway has
-started successfully.</p></li>
 </ul>
 </section>
 </section>

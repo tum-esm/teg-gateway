@@ -2,7 +2,7 @@
 Remote File Management
 ======================
 
-The TEG gateway supports remote file management via ThingsBoard shared attributes. This mechanism allows configuration and system files on the gateway to be created, updated, monitored, and synchronized in a controlled and traceable way. The approach is designed to be robust against intermittent connectivity and to support both read-only mirroring and active configuration management.
+The TEG gateway supports remote file management via ThingsBoard shared attributes. This mechanism allows configuration and system files on the gateway device to be created, updated, monitored, and synchronized in a controlled and traceable way. The approach is designed to be robust against intermittent connectivity and to support both read-only mirroring and file writing.
 
 The remote file management mechanism follows a *server-authoritative* model. ThingsBoard shared attributes define the desired state of all managed files. The TEG gateway never propagates local file changes upstream, except for mirroring file content and reporting synchronization status.
 
@@ -30,7 +30,7 @@ Supported metadata fields:
   Monotonically increasing version number used to ensure that the latest file version is applied after temporary disconnections.
 
 - ``restart_controller_on_change`` (optional)  
-  Boolean flag indicating whether the TEG gateway controller should be restarted after a successful file update. Only the managed controller is restarted when this flag is set. The TEG gateway process itself continues running and is not restarted.
+  Boolean flag indicating whether the controller software should be restarted after a successful file update. Only the managed controller is restarted when this flag is set. The TEG gateway process itself continues running and is not restarted.
 
 Example: Managing a controller configuration file and the system crontab
 
@@ -55,17 +55,17 @@ When a new entry is added to the ``FILES`` attribute, the TEG gateway evaluates 
 - If file content is available, the file is created or updated accordingly.
 - If no file content attribute exists, the file is treated as read-only and its current content is mirrored back to ThingsBoard.
 
-Read-only mirroring is intended for observability and auditing of files that are not actively managed by the TEG gateway, for example system or configuration files modified by other services.
+Read-only mirroring is intended for observability and auditing of files that are not actively managed by the TEG gateway, for example log files, system files or configuration files modified by other services.
 
-In both cases, the TEG gateway creates a client attribute named ``FILE_READ_<file_key>`` containing the latest local file content.
+In both cases, the TEG gateway creates a client attribute named ``FILE_READ_<file_key>`` containing the latest local file content which can be accessed in ThingsBoard and included in Dashboards.
 
 
 Populate ``FILE_CONTENT_<file_key>`` Attributes
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-File content is pushed using a dedicated shared attribute named ``FILE_CONTENT_<file_key>``. The encoding must match the encoding defined in the corresponding ``FILES`` entry.
+File content is defined in ThingsBoard using a dedicated shared attribute named ``FILE_CONTENT_<file_key>``. The encoding must match the encoding defined in the corresponding ``FILES`` entry.
 
-Use case: Create or update a controller configuration file
+Use case: Create or update a json-based configuration file
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 To manage the controller configuration, a shared attribute ``FILE_CONTENT_controller_config`` is created and populated with JSON-encoded configuration data.
@@ -115,7 +115,7 @@ If a mismatch is detected:
 - If the shared attribute is missing or empty, no action is taken.
 - If a managed file was modified locally, the detected hash mismatch causes the TEG gateway to re-apply the remote file content, restoring the desired state defined in ThingsBoard.
 
-If a file update fails, for example due to invalid encoding, insufficient permissions, or temporary I/O errors, the TEG gateway logs the error locally and does not update the corresponding hash entry. This allows the issue to be diagnosed and retried once corrected without leaving the system in an inconsistent state.
+If a file update fails, for example due to invalid encoding, insufficient permissions, or temporary I/O errors, the TEG gateway logs the error locally and does not update the corresponding hash entry. This allows the issue to be diagnosed and retried without leaving the system in an inconsistent state.
 
 Example: ``FILE_HASHES`` client attribute
 

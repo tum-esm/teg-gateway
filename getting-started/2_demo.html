@@ -14,7 +14,7 @@
     <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Installation" href="3_installation/0_index.html" />
+    <link rel="next" title="ThingsBoard Server Installation" href="3_thingsboard_server_installation.html" />
     <link rel="prev" title="System Requirements" href="1_system-requirements.html" />
    
   <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
@@ -43,7 +43,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="0_index.html">Getting Started</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="1_system-requirements.html">System Requirements</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Demo</a></li>
-<li class="toctree-l2"><a class="reference internal" href="3_installation/0_index.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_thingsboard_server_installation.html">ThingsBoard Server Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="3_teg_gateway_installation.html">TEG-Gateway Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="4_setup.html">Setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="5_setup-from-image.html">Setup from Image</a></li>
 </ul>
@@ -59,7 +60,7 @@
   <li><a href="../index.html">Documentation overview</a><ul>
   <li><a href="0_index.html">Getting Started</a><ul>
       <li>Previous: <a href="1_system-requirements.html" title="previous chapter">System Requirements</a></li>
-      <li>Next: <a href="3_installation/0_index.html" title="next chapter">Installation</a></li>
+      <li>Next: <a href="3_thingsboard_server_installation.html" title="next chapter">ThingsBoard Server Installation</a></li>
   </ul></li>
   </ul></li>
 </ul>
@@ -112,8 +113,10 @@ It is meant for showcasing the teg-gateway’s features in an easy to set up exa
 </section>
 <section id="macos-via-homebrew">
 <h3>MacOS (via Homebrew)<a class="headerlink" href="#macos-via-homebrew" title="Link to this heading">¶</a></h3>
-<p><cite>brew install –cask docker-desktop</cite>
-<cite>brew install docker-compose</cite></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>brew<span class="w"> </span>install<span class="w"> </span>--cask<span class="w"> </span>docker-desktop
+brew<span class="w"> </span>install<span class="w"> </span>docker-compose
+</pre></div>
+</div>
 </section>
 <section id="linux">
 <h3>Linux<a class="headerlink" href="#linux" title="Link to this heading">¶</a></h3>
@@ -147,8 +150,8 @@ docker<span class="w"> </span>compose<span class="w"> </span>version
 <span id="id1"></span><h2>Prepare the demo data directory<a class="headerlink" href="#prepare-the-demo-data-directory" title="Link to this heading">¶</a></h2>
 <p>Create a local data folder and point the demo to it:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>demo
-mkdir<span class="w"> </span>-p<span class="w"> </span>data/edge-gateway
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;TEG_DATA_PATH=</span><span class="k">$(</span>realpath<span class="w"> </span>data/edge-gateway<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
+mkdir<span class="w"> </span>-p<span class="w"> </span>data/teg-gateway
+<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;TEG_DATA_PATH=</span><span class="k">$(</span>realpath<span class="w"> </span>data/teg-gateway<span class="k">)</span><span class="s2">&quot;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>.env
 </pre></div>
 </div>
 </section>
@@ -172,7 +175,7 @@ Installation finished successfully!
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>compose<span class="w"> </span>-f<span class="w"> </span>docker-compose-thingsboard.yml<span class="w"> </span>up
 </pre></div>
 </div>
-<p>Open ThingsBoard at <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a> and sign in with:</p>
+<p>Access ThingsBoard GUI at <a class="reference external" href="http://localhost:8080/">http://localhost:8080/</a> and sign in with:</p>
 <ul class="simple">
 <li><p>user: <cite>tenant&#64;thingsboard.org</cite></p></li>
 <li><p>password: <cite>tenant</cite></p></li>
@@ -215,7 +218,7 @@ Installation finished successfully!
 </section>
 <section id="push-and-verify-a-controller-config-file">
 <h2>Push and verify a controller config file<a class="headerlink" href="#push-and-verify-a-controller-config-file" title="Link to this heading">¶</a></h2>
-<p>The demo can mirror controller configuration via device attributes.</p>
+<p>The demo can mirror a controller’s configuration file via device attributes.</p>
 <ol class="arabic simple">
 <li><p>Open the device created by self-provisioning (“Entities” &gt; “Devices” &gt; …)</p></li>
 <li><p>“Device details” -&gt; “Attributes” -&gt; “Shared attributes” -&gt; “Add” (“+”)</p></li>
@@ -245,9 +248,9 @@ Installation finished successfully!
 </div>
 <img alt="Add shared &quot;FILES&quot; attribute to example device" src="../_images/scr_files_attribute.png" />
 <ol class="arabic simple" start="5">
-<li><p>Wait for <cite>config.json</cite> to appear under the data path in your <cite>.env</cite> (see <a class="reference internal" href="#prepare-the-demo-data-directory"><span class="std std-ref">Prepare the demo data directory</span></a> )</p></li>
+<li><p>Wait for <cite>config.json</cite> to appear at the data path in your <cite>.env</cite> (see <a class="reference internal" href="#prepare-the-demo-data-directory"><span class="std std-ref">Prepare the demo data directory</span></a> )</p></li>
 <li><p>Modify the local config file and trigger the “Exit” RPC command via the button on the “Example Sensor” dashboard</p></li>
-<li><p>Check the “Client attributes” scope for <cite>FILE_READ_controller_config</cite></p></li>
+<li><p>Check the content of the client attribute <cite>FILE_READ_controller_config</cite> which should reflect the file’s content</p></li>
 </ol>
 </section>
 <section id="connect-the-gateway-to-an-existing-thingsboard-instance">

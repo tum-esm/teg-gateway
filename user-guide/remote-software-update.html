@@ -83,8 +83,8 @@
             
   <section id="remote-software-update">
 <span id="remote-software-updates"></span><h1>Remote Software Update<a class="headerlink" href="#remote-software-update" title="Link to this heading">¶</a></h1>
-<p>The <em>Remote Software Update</em> feature allows you to deploy new versions of the TEG gateway controller software to devices using ThingsBoard’s OTA update mechanism. This enables the rollout of bug fixes, performance improvements, and new features without requiring physical access to deployed hardware.</p>
-<p>OTA update packages reference version tags or commit hashes from the controller’s GitHub repository. Once an OTA package is created and assigned to a device or device profile, TEG gateway devices automatically receive the update, download the corresponding source code, build a Docker image locally if required, and deploy the new controller version.</p>
+<p>The <em>Remote Software Update</em> feature allows deploying new versions of the TEG gateway controller software to devices using ThingsBoard’s OTA update mechanism. This enables the rollout of bug fixes, performance improvements, and new features without requiring physical access to deployed hardware.</p>
+<p>OTA update packages reference git tags or commit hashes from the controller’s git repository. Once an OTA package is created and assigned to a device or device profile in ThingsBoard, TEG gateway devices automatically receive the update, download the corresponding source code using git, build a Docker image locally if required, and re-deploy the controller software docker container.</p>
 <p>The remote software update mechanism follows a <em>controller-only update model</em>. OTA updates apply exclusively to the TEG gateway controller software and never update or restart the TEG gateway runtime itself. This design ensures that connectivity, telemetry buffering, and management functions remain available throughout the update process.</p>
 <section id="architecture-rationale">
 <h2>Architecture Rationale<a class="headerlink" href="#architecture-rationale" title="Link to this heading">¶</a></h2>
@@ -99,14 +99,14 @@
 <li><p>Navigate to <strong>Advanced features → OTA Updates</strong>.</p></li>
 <li><p>Create a new OTA update entry.</p></li>
 <li><p>Set the <strong>Title</strong> to identify the controller version.</p></li>
-<li><p>Set <strong>Version</strong> to match the GitHub version tag or commit hash of the controller release (for example <code class="docutils literal notranslate"><span class="pre">v1.0.0</span></code>).</p></li>
+<li><p>Set <strong>Version</strong> to match the git tag or commit hash of the controller release (for example <code class="docutils literal notranslate"><span class="pre">v1.0.0</span></code>).</p></li>
 <li><p>Select the <strong>Device Profiles</strong> corresponding to the TEG gateway devices.</p></li>
 <li><p>Set <strong>Package type</strong> to <em>Software</em>.</p></li>
 <li><p>Enable <strong>Use external URL</strong> and leave the URL field empty (<code class="docutils literal notranslate"><span class="pre">-</span></code>).</p></li>
 </ol>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <strong>Version</strong> field is treated as an opaque identifier by the TEG gateway. It is not interpreted semantically and must match the version tag or commit hash used to retrieve the controller source code.</p>
+<p>The <strong>Version</strong> field is treated as an opaque identifier by the TEG gateway. It is not interpreted semantically and must match the git tag or commit hash used to retrieve the controller source code.</p>
 </div>
 <a class="reference internal image-reference" href="../_images/new_ota_package.png"><img alt="OTA package creation workflow" class="align-center" src="../_images/new_ota_package.png" style="width: 80%;" />
 </a>
@@ -129,21 +129,21 @@
 <p>Once the OTA package is assigned, the TEG gateway performs the update automatically:</p>
 <ul class="simple">
 <li><p>The currently running controller is stopped.</p></li>
-<li><p>The new controller version is downloaded.</p></li>
-<li><p>A Docker image is created locally if it does not already exist.</p></li>
-<li><p>The controller is restarted using the new version.</p></li>
+<li><p>The new controller version is downloaded using <cite>git fetch</cite>.</p></li>
+<li><p>A new docker image is built based on the new software.</p></li>
+<li><p>The controller is restarted using the new docker image.</p></li>
 </ul>
-<p>The update procedure is executed synchronously for each device. During the controller restart, incoming telemetry from the controller may be temporarily unavailable, but the TEG gateway itself remains connected to ThingsBoard and continues reporting update status.</p>
+<p>During the OTA update process, the TEG gateway’s main loop is halted, and incoming telemetry from the controller may be temporarily unavailable.</p>
 <p>Throughout the process, the TEG gateway reports its update state back to ThingsBoard using the standard OTA update attributes. The update progress and final status can be monitored via the ThingsBoard Update Dashboard using the <code class="docutils literal notranslate"><span class="pre">sw_state</span></code> attribute.</p>
 <p>For additional details on OTA update states and workflows, refer to the official ThingsBoard documentation:
 <a class="reference external" href="https://thingsboard.io/docs/user-guide/ota-updates/">https://thingsboard.io/docs/user-guide/ota-updates/</a></p>
 </section>
 <section id="rolling-back-to-previous-versions">
 <h2>Rolling Back to Previous Versions<a class="headerlink" href="#rolling-back-to-previous-versions" title="Link to this heading">¶</a></h2>
-<p>The remote software update mechanism also supports rolling back to earlier controller versions.</p>
+<p>The remote software update mechanism also supports rolling back to earlier software versions.</p>
 <p>Rollback operations follow the same execution path as forward updates. No special rollback mode is required, and the previously selected version becomes the desired state once assigned via ThingsBoard.</p>
 <p>To perform a rollback, assign an OTA package that references the desired previous version tag or commit hash to the device. The TEG gateway will stop the currently running controller and restart it using the selected version.</p>
-<p>If a Docker image for the requested version is already available locally, it is reused. Otherwise, the TEG gateway automatically downloads the corresponding source code from GitHub and builds a new Docker image.</p>
+<p>If a Docker image for the requested version is already available locally, it is reused. Otherwise, the TEG gateway automatically downloads the corresponding source code from the git remote server and builds a new Docker image.</p>
 <p>This approach enables rapid switching between controller versions and provides a reliable recovery path in case issues arise with newly deployed releases.</p>
 </section>
 <section id="operational-notes">

@@ -1,4 +1,6 @@
-TEG-gateway Installation
+.. _teg_gateway_installation:
+
+TEG-Gateway Installation
 =====================================
 This guide details installation of the teg-gateway project on an IoT device. It assumes a thingsboard
 server has been set up already and can be connected to via MQTT.
@@ -17,8 +19,8 @@ Update the package list and install required dependencies:
         libffi-dev openssl docker.io git \
         libsqlite3-dev wget python3.12 python3.12-venv
 
-Python
-------
+Alternative Python Install Options:
+------------------------------------
 Using uv python version manager:
 """""""""""""""""""""""""""""""""
 .. code-block:: bash
@@ -39,7 +41,7 @@ Compiling from source:
     sudo make install
     curl -sSL https://install.python-poetry.org/ | python3.12 -
 
-Download TEG Gateway
+Download TEG Gateway Sourcecode
 -----------------------------------
 
 You can download the latest release of TEG Gateway from the GitHub repository:

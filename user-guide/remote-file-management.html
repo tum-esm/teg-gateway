@@ -83,7 +83,7 @@
             
   <section id="remote-file-management">
 <span id="id1"></span><h1>Remote File Management<a class="headerlink" href="#remote-file-management" title="Link to this heading">¶</a></h1>
-<p>The TEG gateway supports remote file management via ThingsBoard shared attributes. This mechanism allows configuration and system files on the gateway to be created, updated, monitored, and synchronized in a controlled and traceable way. The approach is designed to be robust against intermittent connectivity and to support both read-only mirroring and active configuration management.</p>
+<p>The TEG gateway supports remote file management via ThingsBoard shared attributes. This mechanism allows configuration and system files on the gateway device to be created, updated, monitored, and synchronized in a controlled and traceable way. The approach is designed to be robust against intermittent connectivity and to support both read-only mirroring and file writing.</p>
 <p>The remote file management mechanism follows a <em>server-authoritative</em> model. ThingsBoard shared attributes define the desired state of all managed files. The TEG gateway never propagates local file changes upstream, except for mirroring file content and reporting synchronization status.</p>
 <section id="shared-attributes">
 <h2>Shared Attributes<a class="headerlink" href="#shared-attributes" title="Link to this heading">¶</a></h2>
@@ -100,7 +100,7 @@ Encoding used when transferring file content. Supported values are <code class="
 <li><p><code class="docutils literal notranslate"><span class="pre">write_version</span></code> (optional)
 Monotonically increasing version number used to ensure that the latest file version is applied after temporary disconnections.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">restart_controller_on_change</span></code> (optional)
-Boolean flag indicating whether the TEG gateway controller should be restarted after a successful file update. Only the managed controller is restarted when this flag is set. The TEG gateway process itself continues running and is not restarted.</p></li>
+Boolean flag indicating whether the controller software should be restarted after a successful file update. Only the managed controller is restarted when this flag is set. The TEG gateway process itself continues running and is not restarted.</p></li>
 </ul>
 <p>Example: Managing a controller configuration file and the system crontab</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
@@ -123,14 +123,14 @@ Boolean flag indicating whether the TEG gateway controller should be restarted a
 <li><p>If file content is available, the file is created or updated accordingly.</p></li>
 <li><p>If no file content attribute exists, the file is treated as read-only and its current content is mirrored back to ThingsBoard.</p></li>
 </ul>
-<p>Read-only mirroring is intended for observability and auditing of files that are not actively managed by the TEG gateway, for example system or configuration files modified by other services.</p>
-<p>In both cases, the TEG gateway creates a client attribute named <code class="docutils literal notranslate"><span class="pre">FILE_READ_&lt;file_key&gt;</span></code> containing the latest local file content.</p>
+<p>Read-only mirroring is intended for observability and auditing of files that are not actively managed by the TEG gateway, for example log files, system files or configuration files modified by other services.</p>
+<p>In both cases, the TEG gateway creates a client attribute named <code class="docutils literal notranslate"><span class="pre">FILE_READ_&lt;file_key&gt;</span></code> containing the latest local file content which can be accessed in ThingsBoard and included in Dashboards.</p>
 </section>
 <section id="populate-file-content-file-key-attributes">
 <h3>Populate <code class="docutils literal notranslate"><span class="pre">FILE_CONTENT_&lt;file_key&gt;</span></code> Attributes<a class="headerlink" href="#populate-file-content-file-key-attributes" title="Link to this heading">¶</a></h3>
-<p>File content is pushed using a dedicated shared attribute named <code class="docutils literal notranslate"><span class="pre">FILE_CONTENT_&lt;file_key&gt;</span></code>. The encoding must match the encoding defined in the corresponding <code class="docutils literal notranslate"><span class="pre">FILES</span></code> entry.</p>
-<section id="use-case-create-or-update-a-controller-configuration-file">
-<h4>Use case: Create or update a controller configuration file<a class="headerlink" href="#use-case-create-or-update-a-controller-configuration-file" title="Link to this heading">¶</a></h4>
+<p>File content is defined in ThingsBoard using a dedicated shared attribute named <code class="docutils literal notranslate"><span class="pre">FILE_CONTENT_&lt;file_key&gt;</span></code>. The encoding must match the encoding defined in the corresponding <code class="docutils literal notranslate"><span class="pre">FILES</span></code> entry.</p>
+<section id="use-case-create-or-update-a-json-based-configuration-file">
+<h4>Use case: Create or update a json-based configuration file<a class="headerlink" href="#use-case-create-or-update-a-json-based-configuration-file" title="Link to this heading">¶</a></h4>
 <p>To manage the controller configuration, a shared attribute <code class="docutils literal notranslate"><span class="pre">FILE_CONTENT_controller_config</span></code> is created and populated with JSON-encoded configuration data.</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;setting1&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;value1&quot;</span><span class="p">,</span>
@@ -169,7 +169,7 @@ Boolean flag indicating whether the TEG gateway controller should be restarted a
 <li><p>If the shared attribute is missing or empty, no action is taken.</p></li>
 <li><p>If a managed file was modified locally, the detected hash mismatch causes the TEG gateway to re-apply the remote file content, restoring the desired state defined in ThingsBoard.</p></li>
 </ul>
-<p>If a file update fails, for example due to invalid encoding, insufficient permissions, or temporary I/O errors, the TEG gateway logs the error locally and does not update the corresponding hash entry. This allows the issue to be diagnosed and retried once corrected without leaving the system in an inconsistent state.</p>
+<p>If a file update fails, for example due to invalid encoding, insufficient permissions, or temporary I/O errors, the TEG gateway logs the error locally and does not update the corresponding hash entry. This allows the issue to be diagnosed and retried without leaving the system in an inconsistent state.</p>
 <p>Example: <code class="docutils literal notranslate"><span class="pre">FILE_HASHES</span></code> client attribute</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span>
 <span class="w">    </span><span class="nt">&quot;crontab&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
