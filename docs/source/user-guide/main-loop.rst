@@ -12,11 +12,11 @@ between the local controller, ThingsBoard, and local persistence components.
 
 The main loop is responsible for:
 
-- Maintaining a persistent connection to ThingsBoard
+- Maintaining a persistent MQTT connection to ThingsBoard
 - Forwarding telemetry, logs, and status information
 - Receiving and dispatching remote commands
-- Supervising the controller process
-- Ensuring local data durability during network interruptions
+- Supervising the controller docker container
+- Ensuring local data durability during network interruptions and/or system outages
 
 The loop is designed to run continuously and autonomously without user
 interaction.
@@ -29,25 +29,27 @@ initialization phase:
 
 - Command-line arguments are parsed
 - Device identity and credentials are verified or provisioned
-- Local databases used for buffering and archiving are opened
-- The connection to ThingsBoard is established
+- Local sqlite databases used for buffering and archiving are opened
+- The MQTT connection to ThingsBoard is established
 
-Once initialization completes successfully, the gateway transitions into normal
-operation.
+Once initialization completes successfully, the gateway proceeds to endlessly loop through a sequential list of actions.
 
-Steady-State Operation
-----------------------
+Steady-State Operation (Loop)
+----------------------------------
 
 During normal operation, the main loop continuously performs the following tasks:
 
-- Publishes telemetry and log messages received from the controller
 - Receives shared attribute updates and RPC commands from ThingsBoard
+- Builds and starts the controller software docker container if needed
+- Publishes telemetry and log messages received from the controller
 - Triggers remote file synchronization and OTA updates when requested
-- Monitors the health of the controller process
-- Flushes buffered data when connectivity is available
+- Monitors the health of the controller docker container
+- Buffers outgoing and incoming messages in sqlite
 
 All of these activities are coordinated within the main loop to ensure predictable
 and deterministic behavior.
+
+See a detailed description here: :ref:`_architecture`
 
 Failure Handling and Resilience
 -------------------------------
@@ -71,7 +73,6 @@ The TEG gateway responds gracefully to shutdown signals:
 
 - Active connections are closed cleanly
 - Local databases are flushed and closed
-- The controller is stopped if running
 
 A forced shutdown is only triggered if graceful termination fails within a defined
 timeout.
@@ -83,5 +84,3 @@ Operational Notes
 - The main loop runs continuously as long as the TEG gateway process is active.
 - Most user-facing features (RPCs, file management, OTA updates) are coordinated
   through this loop.
-- In normal operation, no manual intervention is required once the gateway has
-  started successfully.

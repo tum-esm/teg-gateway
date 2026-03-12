@@ -2,11 +2,9 @@
 Remote Procedure Calls
 ======================
 
-The TEG gateway supports *Remote Procedure Calls (RPC)* via ThingsBoard's built-in RPC mechanism. RPCs allow external applications, automation scripts, or ThingsBoard dashboards to invoke predefined commands on the TEG gateway controller and receive immediate feedback.
+The TEG gateway supports *Remote Procedure Calls (RPC)* via ThingsBoard's built-in RPC mechanism. RPCs allow external applications, automation scripts, or ThingsBoard dashboards to invoke predefined commands on the TEG gateway and receive immediate feedback.
 
 This mechanism is primarily intended for operational control, diagnostics, and maintenance tasks that must be executed on-demand without direct access to the device.
-
-RPCs follow a *controller-executed* model. All RPC commands are handled by the TEG gateway controller, while the TEG gateway runtime acts as a secure transport and execution environment. This separation ensures that operational commands can be executed without interrupting the gateway process itself, unless explicitly intended.
 
 
 Overview
@@ -14,7 +12,7 @@ Overview
 
 ThingsBoard provides an RPC widget that acts as an interactive console within dashboards. Using this widget, users can send RPC requests to a specific TEG gateway device and inspect the returned responses in real time.
 
-RPCs are executed by the TEG gateway controller and are restricted to a predefined set of supported commands to ensure safe and controlled operation. Unsupported or unknown RPC methods are rejected and return an error response without executing any action on the device.
+RPCs are executed by the TEG gateway and are restricted to a predefined set of supported commands to ensure safe and controlled operation. Unsupported or unknown RPC methods are rejected and return an error response without executing any action on the device.
 
 For a general introduction to ThingsBoard RPCs, refer to the official documentation:
 https://thingsboard.io/docs/user-guide/rpc/
@@ -31,9 +29,7 @@ Built-in RPC Command: ``list``
 
 The TEG gateway controller exposes a built-in RPC command named ``list``. This command returns a human-readable list of all RPC commands currently supported by the controller, including a short description of each command and its expected parameters.
 
-This command is useful for quickly verifying controller capabilities and for debugging RPC availability after software updates.
-
-The output of this command reflects the currently running controller version. After controller updates, the list of available RPC commands may change accordingly.
+This command is useful for quickly verifying RPC capabilities.
 
 Example response:
 
@@ -114,21 +110,21 @@ Shuts down the TEG gateway host system.
 Terminates the TEG gateway process.
 
 **Description**
-  Stops the gateway process, which triggers an automatic restart by Docker.
+  Stops the gateway docker container, which triggers an automatic restart by Docker.
 
 **Parameters**
   None
 
 **Notes**
-  - Performs a clean restart of the gateway process
+  - Performs a clean restart of the gateway docker container
   - Allows to apply gateway-level configuration or software changes.
-  - The restart is performed by the container runtime and does not reboot the host system.
+  - The restart is performed by the docker runtime and does not reboot the host system.
 
 
 ``restart_controller``
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Restarts the TEG gateway controller container.
+Restarts the controller software docker container.
 
 **Description**
   Stops and restarts the controller Docker container without affecting the gateway runtime.
@@ -174,7 +170,7 @@ Executes an arbitrary command on the TEG gateway host.
   - ``timeout_s`` (integer, optional): Command timeout in seconds (default: 30)
 
 **Notes**
-  - This command is performed within the gateway runtime environment, not within the controller container.
+  - This command is performed within the gateway runtime environment on the host system, not within the controller container.
   - The command is executed with the same permissions as the gateway process, which may have security implications.
   - Use with extreme caution, as it can lead to service interruptions or security risks if misused. 
   - Command execution is synchronous and blocks until completion or timeout. Long-running commands may temporarily delay other RPC handling.
@@ -221,4 +217,4 @@ RPC commands provide powerful control over TEG gateway devices. It is strongly r
 
 Improper use of RPC commands may lead to service interruptions or security risks.
 
-For production deployments, it is recommended to disable or restrict destructive RPC commands entirely and rely on automated workflows where possible.
+For production deployments, it is recommended to disable or restrict destructive RPC commands entirely.
