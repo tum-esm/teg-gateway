@@ -5,9 +5,9 @@ This section describes how to create an image after the system setup to flash it
 
 Follow installation and setup instructions for a single system first. Skip the provisioning step as this needs to be done for each system individually after flashing the image.
 
-A image can be created from the prepared system and then flashed onto other systems. Then the new systems ca then be renamed and provisioned individually.
+An image can be created from the prepared system and then flashed onto other systems. The new systems can then be renamed and provisioned individually.
 
-Link to installation.rst and setup.rst
+See :ref:`_teg_gateway_installation` and :ref:`_setup`
 
 Create Backup Image
 -------------------
@@ -15,26 +15,26 @@ Create Backup Image
 .. code-block:: bash
 
     diskutil list
-    diskutil umountDisk /dev/disk[*]
-    dd status=progress bs=4M  if=/dev/disk[*] | gzip > //Users/.../
+    # diskutil umountDisk /dev/disk[*]
+    # dd status=progress bs=4M  if=/dev/disk[*] | gzip > //Users/.../
 
 
-Insert fresh SD Card into personal computer
+ -> Insert fresh SD Card.
 
-Create Fresh System
+Flash image onto card
 -------------------
 
 .. code-block:: bash
 
     diskutil list
     diskutil umountDisk /dev/disk[*]
-    gzip -dc //Users/.../acropolis-edge-image.gz | sudo dd of=/dev/disk[*] bs=4M status=progress
+    gzip -dc //Users/.../teg-image.gz | sudo dd of=/dev/disk[*] bs=4M status=progress
 
 
-Remove SD Card and insert into RaspberryPi.
+Remove SD Card and insert into RaspberryPi/edge-device.
 
-Change Hostname:
-
+(Optional) Change Hostname (Raspberry Pi):
+------------------------------------
 .. code-block:: bash
     
     sudo raspi-config
@@ -45,5 +45,4 @@ Change Hostname:
 Provision Device
 ----------------
 
-Follow the device provisioning instructions to register the new device with ThingsBoard. 
-Link to quickstart.rst / Device Provisioning
+The device self-provisions upon its initial MQTT connection with ThingsBoard. See :ref:`_setup_device_provisioning`

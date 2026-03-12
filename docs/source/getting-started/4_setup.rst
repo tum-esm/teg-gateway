@@ -1,3 +1,5 @@
+.. _setup:
+
 Setup
 =====
 
@@ -51,20 +53,36 @@ Prerequisites
 - Set up a ThingsBoard Server (see official docs: https://thingsboard.io/docs/user-guide/install/installation-options/)
 - Create appropriate Device Profiles in ThingsBoard: https://thingsboard.io/docs/user-guide/device-profiles/
 - For the gateway device profile, configure:
-  - Name
-  - Transport Type: MQTT
-  - Provisioning Strategy: Secret Provisioning (enable “Allow to create new devices”)
+
+    - Name
+    - Transport Type: MQTT
+    - Provisioning Strategy: Secret Provisioning (enable “Allow to create new devices”)
+
 - Put the provisioning credentials into your `.env` file (see `.env.example`).
 - Optionally, set the desired hostname in your OS configuration
 
 
+Build the TEG Gateway runner docker image:
+--------------------------------------------------
+.. code-block:: bash
+
+    cd scripts
+    ./build_gateway_runner_docker_image.sh # builds the teg-gateway-runner docker image
+
+
+Run TEG Gateway using Docker daemon:
+--------------------------------------
+.. code-block:: bash
+
+    cd scripts
+    ./run_dockerized_gateway.sh # also registers device with ThingsBoard and creates tb_access_token
+    docker logs --tail 50 -f acropolis_edge_gateway # watch live logs
+
+
+.. _setup_device_provisioning:
 Device Provisioning
 -------------------
 
 - On first start, the gateway will self‑provision if no access token file exists.
 - By default, the device name will match the host OS hostname (unless overridden via environment variable).
 
-.. code-block:: bash
-
-    ./run_dockerized_gateway.sh #registers device with ThingsBoard and creates tb_access_token
-    docker logs --tail 50 -f acropolis_edge_gateway

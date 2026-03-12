@@ -27,8 +27,11 @@ Windows/macOS
 
 MacOS (via Homebrew)
 ~~~~~~~~~~~~~~~~~~~~
-`brew install --cask docker-desktop`
-`brew install docker-compose`
+.. code-block:: bash
+
+    brew install --cask docker-desktop
+    brew install docker-compose
+
 
 Linux
 ~~~~~
@@ -72,8 +75,8 @@ Create a local data folder and point the demo to it:
 .. code-block:: bash
 
     cd demo
-    mkdir -p data/edge-gateway
-    echo "TEG_DATA_PATH=$(realpath data/edge-gateway)" >> .env
+    mkdir -p data/teg-gateway
+    echo "TEG_DATA_PATH=$(realpath data/teg-gateway)" >> .env
 
 
 Run the full demo (local ThingsBoard)
@@ -102,7 +105,7 @@ To run the demo once it has been initialized:
 
     docker compose -f docker-compose-thingsboard.yml up
 
-Open ThingsBoard at `http://localhost:8080/ <http://localhost:8080/>`_ and sign in with:
+Access ThingsBoard GUI at `http://localhost:8080/ <http://localhost:8080/>`_ and sign in with:
 
 - user: `tenant@thingsboard.org`
 - password: `tenant`
@@ -144,7 +147,7 @@ Import the example dashboard
 
 Push and verify a controller config file
 ----------------------------------------
-The demo can mirror controller configuration via device attributes.
+The demo can mirror a controller's configuration file via device attributes.
 
 1. Open the device created by self-provisioning ("Entities" > "Devices" > ...)
 2. "Device details" -> "Attributes" -> "Shared attributes" -> "Add" ("+")
@@ -178,9 +181,9 @@ The demo can mirror controller configuration via device attributes.
     :alt: Add shared "FILES" attribute to example device
 
 
-5. Wait for `config.json` to appear under the data path in your `.env` (see :ref:`prepare-the-demo-data-directory` )
+5. Wait for `config.json` to appear at the data path in your `.env` (see :ref:`prepare-the-demo-data-directory` )
 6. Modify the local config file and trigger the "Exit" RPC command via the button on the "Example Sensor" dashboard
-7. Check the "Client attributes" scope for `FILE_READ_controller_config`
+7. Check the content of the client attribute `FILE_READ_controller_config` which should reflect the file's content
 
 Connect the gateway to an existing ThingsBoard instance
 --------------------------------------------------------
