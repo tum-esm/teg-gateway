@@ -6,10 +6,6 @@
 Welcome to the Thingsboard Edge Gateway Documentation
 =====================================================
 
-Add your content using ``reStructuredText`` syntax. See the
-`reStructuredText <https://www.sphinx-doc.org/en/master/usage/restructuredtext/index.html>`_
-documentation for details.
-
 .. note::
 
    This project is under active development.
@@ -20,9 +16,8 @@ documentation for details.
    :maxdepth: 2
    :caption: Contents:
 
-   getting-started/index
+   getting-started/0_index
    user-guide/index
    developer-guide/index
-   changelog
    api/index
 
