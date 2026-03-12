@@ -1,7 +1,7 @@
 Utilities
 =========
 
-This section documents utility and support modules used across the Edge Gateway.
+This section documents utility and support modules used across the TEG Gateway.
 These modules provide configuration, logging, and defensive helper functions.
 
 
