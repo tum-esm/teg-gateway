@@ -10,26 +10,24 @@
 
 ## Overview
 
-The **TEG Gateway** is a lightweight runtime that connects locally
-deployed edge controllers to a central [ThingsBoard](https://thingsboard.io/docs/) instance. It acts as a
-reliable communication, management, and supervision layer between edge devices
-and the cloud. 
+The **TEG Gateway** is a lightweight runtime that connects IoT devices to a central [ThingsBoard](https://thingsboard.io/docs/) server.
+It acts as a reliable communication, management, and supervision layer between the IoT device and the cloud. 
 
 The gateway is designed for unattended, long-term operation in constrained
 environments. It is typically deployed on a small Linux-based system
-(e.g. a Raspberry Pi) and runs continuously as a
-background service. It supports remote configuration, controller software updates,
-and operational control without requiring physical access to the device.
-
+(e.g. a Raspberry Pi) and runs continuously (typically inside a docker container). 
+It enables remote configuration, software updates, and operational control without requiring physical access to the device.
 
 ## Features
 
-- Resilient MQTT communication with automatic reconnection
-- Offline buffering using local SQLite databases for resilience
-- Remote configuration management for files and system settings
-- Controller OTA updates with rollback support
-- Remote Procedure Calls (RPCs) with a predefined command set
+- Resilient MQTT-based communication with ThingsBoard with automatic reconnection
+- Tiered local buffering of telemetry, logs, and historical data using local SQLite databases for resilience
+- Server-authoritative remote file management and mirroring
+- OTA software updates with rollback support
+- Remote procedure calls for operational control
 - Self-provisioning against ThingsBoard at first startup
+- Automated health monitoring and diagnostic telemetry
+- Graceful handling of network outages and controller failures
 
 ## Architecture Overview
 
@@ -38,20 +36,20 @@ that separates **infrastructure responsibilities** from **application logic**.
 
 At a high level, the system consists of two cooperating components:
 
-- **Edge Gateway**  
+- **TEG Gateway (this project)**  
   A long-running Python process that maintains connectivity to ThingsBoard,
   handles communication, persistence, and remote management, and supervises the
-  lifecycle of the controller. The gateway is designed to remain stable and
-  continuously available, even during controller restarts or updates.
+  lifecycle of the controller. The TEG-gateway is designed to remain stable and
+  continuously available, even during controller restarts or software updates.
 
-- **Edge Controller**  
+- **Controller Software**  
   An application-specific component running in a Docker container. The controller
   implements domain logic such as sensor control or data processing and can be
   updated, restarted, or replaced independently of the gateway. The controller
   software is not included in this repository and originates from an external GitHub repository.
 
 This separation ensures that operational capabilities such as telemetry buffering,
-remote configuration, and recovery actions remain available at all times.
+remote configuration, and recovery actions remain available at all times, independently of the controller software.
 
 A more detailed description of the runtime behavior and interactions between these
 components is available in the documentation:
@@ -63,7 +61,7 @@ components is available in the documentation:
 
 ## Development and Type Checking
 
-Setup and installation are described in the
+Production-level setup and installation steps are described in the
 [Installation Guide](https://tum-esm.github.io/teg-gateway/getting-started).  
 The following steps are intended for local development.
 
@@ -86,10 +84,9 @@ bash scripts/run_mypy.sh
 ## Context and Origin
 
 The TEG Gateway was originally developed as part of the
-[**ACROPOLIS** CO₂ sensor network](https://amt.copernicus.org/articles/19/745/2026/) within the ICOS Cities framework. It is used
-as the communication and management layer for the
-[ACROPOLIS-edge](https://github.com/tum-esm/ACROPOLIS-edge) controller software
-and the associated urban measurement network.
+[**ACROPOLIS** CO₂ sensor network](https://amt.copernicus.org/articles/19/745/2026/) within the ICOS Cities framework. 
+It is used as the communication and management layer for the
+[ACROPOLIS-edge](https://github.com/tum-esm/ACROPOLIS-edge) controller software and the associated urban measurement network.
 
 Although the gateway was designed and validated in the context of ACROPOLIS,
 it is implemented as a standalone and reusable component suitable for any sensor network.
