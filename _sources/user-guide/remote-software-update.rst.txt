@@ -4,7 +4,7 @@ Remote Software Update
 
 The *Remote Software Update* feature allows deploying new versions of the TEG gateway controller software to devices using ThingsBoard's OTA update mechanism. This enables the rollout of bug fixes, performance improvements, and new features without requiring physical access to deployed hardware.
 
-OTA update packages reference git tags or commit hashes from the controller's git repository. Once an OTA package is created and assigned to a device or device profile in ThingsBoard, TEG gateway devices automatically receive the update, download the corresponding source code using git, build a Docker image locally if required, and re-deploy the controller software docker container.
+OTA update packages reference git tags or commit hashes from the controller's git repository. Once an OTA package is created and assigned to a device or device profile in ThingsBoard, TEG gateway devices automatically receive the update, download the corresponding source code using git, build a Docker image locally if required, and re-deploy the controller software Docker container.
 
 The remote software update mechanism follows a *controller-only update model*. OTA updates apply exclusively to the TEG gateway controller software and never update or restart the TEG gateway runtime itself. This design ensures that connectivity, telemetry buffering, and management functions remain available throughout the update process.
 
@@ -66,8 +66,8 @@ Once the OTA package is assigned, the TEG gateway performs the update automatica
 
 - The currently running controller is stopped.
 - The new controller version is downloaded using `git fetch`.
-- A new docker image is built based on the new software.
-- The controller is restarted using the new docker image.
+- A new Docker image is built based on the new software.
+- The controller is restarted using the new Docker image.
 
 During the OTA update process, the TEG gateway's main loop is halted, and incoming telemetry from the controller may be temporarily unavailable.
 

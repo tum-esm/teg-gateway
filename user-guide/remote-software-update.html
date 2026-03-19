@@ -84,7 +84,7 @@
   <section id="remote-software-update">
 <span id="remote-software-updates"></span><h1>Remote Software Update<a class="headerlink" href="#remote-software-update" title="Link to this heading">¶</a></h1>
 <p>The <em>Remote Software Update</em> feature allows deploying new versions of the TEG gateway controller software to devices using ThingsBoard’s OTA update mechanism. This enables the rollout of bug fixes, performance improvements, and new features without requiring physical access to deployed hardware.</p>
-<p>OTA update packages reference git tags or commit hashes from the controller’s git repository. Once an OTA package is created and assigned to a device or device profile in ThingsBoard, TEG gateway devices automatically receive the update, download the corresponding source code using git, build a Docker image locally if required, and re-deploy the controller software docker container.</p>
+<p>OTA update packages reference git tags or commit hashes from the controller’s git repository. Once an OTA package is created and assigned to a device or device profile in ThingsBoard, TEG gateway devices automatically receive the update, download the corresponding source code using git, build a Docker image locally if required, and re-deploy the controller software Docker container.</p>
 <p>The remote software update mechanism follows a <em>controller-only update model</em>. OTA updates apply exclusively to the TEG gateway controller software and never update or restart the TEG gateway runtime itself. This design ensures that connectivity, telemetry buffering, and management functions remain available throughout the update process.</p>
 <section id="architecture-rationale">
 <h2>Architecture Rationale<a class="headerlink" href="#architecture-rationale" title="Link to this heading">¶</a></h2>
@@ -130,8 +130,8 @@
 <ul class="simple">
 <li><p>The currently running controller is stopped.</p></li>
 <li><p>The new controller version is downloaded using <cite>git fetch</cite>.</p></li>
-<li><p>A new docker image is built based on the new software.</p></li>
-<li><p>The controller is restarted using the new docker image.</p></li>
+<li><p>A new Docker image is built based on the new software.</p></li>
+<li><p>The controller is restarted using the new Docker image.</p></li>
 </ul>
 <p>During the OTA update process, the TEG gateway’s main loop is halted, and incoming telemetry from the controller may be temporarily unavailable.</p>
 <p>Throughout the process, the TEG gateway reports its update state back to ThingsBoard using the standard OTA update attributes. The update progress and final status can be monitored via the ThingsBoard Update Dashboard using the <code class="docutils literal notranslate"><span class="pre">sw_state</span></code> attribute.</p>

@@ -94,7 +94,7 @@ between the local controller, ThingsBoard, and local persistence components.</p>
 <li><p>Maintaining a persistent MQTT connection to ThingsBoard</p></li>
 <li><p>Forwarding telemetry, logs, and status information</p></li>
 <li><p>Receiving and dispatching remote commands</p></li>
-<li><p>Supervising the controller docker container</p></li>
+<li><p>Supervising the controller Docker container</p></li>
 <li><p>Ensuring local data durability during network interruptions and/or system outages</p></li>
 </ul>
 <p>The loop is designed to run continuously and autonomously without user
@@ -117,10 +117,10 @@ initialization phase:</p>
 <p>During normal operation, the main loop continuously performs the following tasks:</p>
 <ul class="simple">
 <li><p>Receives shared attribute updates and RPC commands from ThingsBoard</p></li>
-<li><p>Builds and starts the controller software docker container if needed</p></li>
+<li><p>Builds and starts the controller software Docker container if needed</p></li>
 <li><p>Publishes telemetry and log messages received from the controller</p></li>
 <li><p>Triggers remote file synchronization and OTA updates when requested</p></li>
-<li><p>Monitors the health of the controller docker container</p></li>
+<li><p>Monitors the health of the controller Docker container</p></li>
 <li><p>Buffers outgoing and incoming messages in sqlite</p></li>
 </ul>
 <p>All of these activities are coordinated within the main loop to ensure predictable

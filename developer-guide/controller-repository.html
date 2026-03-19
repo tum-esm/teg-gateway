@@ -83,30 +83,31 @@
             
   <section id="controller-repository">
 <h1>Controller Repository<a class="headerlink" href="#controller-repository" title="Link to this heading">¶</a></h1>
-<p>The Controller Repository contains the device-side hardware interface managed by the gateway.
-It is designed as a standalone, versioned component that is built and deployed independently.</p>
+<p>The controller git repository contains the software for interfacing with device-side hardware and is managed by the
+TEG-gateway.
+It is designed to be a standalone, versioned component that is built and deployed independently from the TEG-gateway.</p>
 <section id="architecture-overview">
 <h2>Architecture Overview<a class="headerlink" href="#architecture-overview" title="Link to this heading">¶</a></h2>
 <p>The controller repository:</p>
 <ul class="simple">
-<li><p>Is a dedicated Git repository (not part of the gateway).</p></li>
-<li><p>Has its own versioning and release cycle.</p></li>
-<li><p>Is fetched and built by the gateway via the OTA update mechanisms.</p></li>
-<li><p>Is executed inside an isolated Docker container.</p></li>
-<li><p>Communicates with the gateway exclusively via a local SQLite database.</p></li>
+<li><p>is a dedicated Git repository (not part of the gateway)</p></li>
+<li><p>has its own versioning and release cycle</p></li>
+<li><p>is fetched and built by the gateway via the ThingsBoard OTA update mechanisms and git remote repository</p></li>
+<li><p>is executed inside an isolated Docker container</p></li>
+<li><p>communicates with the gateway exclusively via a local SQLite database</p></li>
 </ul>
-<p>The gateway is responsible for:</p>
+<p>The TEG-gateway is responsible for:</p>
 <ul class="simple">
-<li><p>Building the controller Docker image.</p></li>
-<li><p>Starting and supervising the container.</p></li>
-<li><p>Monitoring controller health.</p></li>
-<li><p>Restarting the container in case of failure.</p></li>
+<li><p>building the controller Docker image</p></li>
+<li><p>starting and supervising the controller Docker container</p></li>
+<li><p>monitoring controller health</p></li>
+<li><p>restarting the controller Docker container in case of failure</p></li>
 </ul>
 <p>The controller is responsible for:</p>
 <ul class="simple">
 <li><p>Implementing device-specific logic (sensors, actuators, control flows).</p></li>
-<li><p>Writing outbound MQTT messages to the local SQLite message queue (measurements, logs).</p></li>
-<li><p>Maintaining a periodic health check.</p></li>
+<li><p>Writing outbound messages to the local SQLite message queue (measurements, logs).</p></li>
+<li><p>Providing a periodic health check heartbeat message.</p></li>
 </ul>
 </section>
 <section id="repository-structure">
@@ -114,9 +115,9 @@ It is designed as a standalone, versioned component that is built and deployed i
 <p>A minimal controller repository must contain:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> (in repository root)</p></li>
-<li><p>Controller source code</p></li>
-<li><p>SQLite communication implementation</p></li>
-<li><p>Dependency definition (e.g. <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>)</p></li>
+<li><p>controller source code</p></li>
+<li><p>TGE-communication implementation via SQLite</p></li>
+<li><p>dependency definition (e.g. <code class="docutils literal notranslate"><span class="pre">requirements.txt</span></code>)</p></li>
 </ul>
 <p>A typical structure:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>controller-repo/
@@ -128,7 +129,8 @@ It is designed as a standalone, versioned component that is built and deployed i
 └── modules/
 </pre></div>
 </div>
-<p>The gateway automatically builds the Docker image from the root <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code>.</p>
+<p>The gateway automatically builds the Docker image from the root <code class="docutils literal notranslate"><span class="pre">Dockerfile</span></code> unless a different file is specified
+via environment variables.</p>
 </section>
 <section id="linking-the-controller-repository">
 <h2>Linking the Controller Repository<a class="headerlink" href="#linking-the-controller-repository" title="Link to this heading">¶</a></h2>
@@ -136,15 +138,16 @@ It is designed as a standalone, versioned component that is built and deployed i
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">TEG_CONTROLLER_GIT_PATH</span>
 </pre></div>
 </div>
-<p>This variable must point to the controller Git repository.</p>
-<p>Setup details are described in: <span class="xref std std-doc">Environment Variables</span></p>
+<p>This variable must point to the controller Git repository and must have a git remote configured / authenticated for the
+OTA software update feature to function.</p>
+<p>Setup details are described in: <span class="xref std std-ref">_setup_env_vars</span></p>
 </section>
 <section id="sqlite-communication-interface">
 <h2>SQLite Communication Interface<a class="headerlink" href="#sqlite-communication-interface" title="Link to this heading">¶</a></h2>
 <p>The controller and gateway communicate via a shared SQLite database.</p>
 <p>The controller must:</p>
 <ol class="arabic simple">
-<li><p>Enqueue outbound MQTT messages into the <code class="docutils literal notranslate"><span class="pre">messages</span></code> table.</p></li>
+<li><p>Enqueue outbound messages into the <code class="docutils literal notranslate"><span class="pre">messages</span></code> table.</p></li>
 <li><p>Periodically update the <code class="docutils literal notranslate"><span class="pre">health_check</span></code> table.</p></li>
 </ol>
 <p>Database schema definitions are documented in: <a class="reference internal" href="../api/persistence.html#header-database-schemas"><span class="std std-ref">Database Schemas</span></a></p>
@@ -163,13 +166,13 @@ It is designed as a standalone, versioned component that is built and deployed i
 <h3>Health Check Mechanism<a class="headerlink" href="#health-check-mechanism" title="Link to this heading">¶</a></h3>
 <p>The controller must periodically write a timestamp (milliseconds since epoch) to:</p>
 <p><code class="docutils literal notranslate"><span class="pre">health_check(id=1,</span> <span class="pre">timestamp_ms=&lt;now&gt;)</span></code></p>
-<p>The gateway monitors this timestamp to detect stalled or crashed controllers.</p>
+<p>The TEG-gateway monitors this timestamp to detect stalled or crashed controllers.</p>
 </section>
 </section>
 <section id="failure-handling">
 <h2>Failure Handling<a class="headerlink" href="#failure-handling" title="Link to this heading">¶</a></h2>
 <p>Controllers must fail fast and exit the main process if an unrecoverable error occurs.</p>
-<p>The gateway will automatically restart the container via a potential backoff.</p>
+<p>The TEG-gateway will automatically restart the container using an exponential backoff.</p>
 <p>Controllers must not:</p>
 <ul class="simple">
 <li><p>Attempt self-restarts</p></li>
@@ -216,10 +219,10 @@ It is designed as a standalone, versioned component that is built and deployed i
 <p>Controllers can use the gateway Remote File Management to receive configuration files (e.g. <code class="docutils literal notranslate"><span class="pre">config.json</span></code>).</p>
 <p>Typical workflow:</p>
 <ul class="simple">
-<li><p>File is managed via ThingsBoard UI.</p></li>
-<li><p>Gateway syncs file to controller container.</p></li>
+<li><p>File is managed via ThingsBoard UI using shared attributes (see <span class="xref std std-ref">_remote-file-management</span> ).</p></li>
+<li><p>Gateway syncs file to controller data folder (mounted to controller docker container filesystem).</p></li>
 <li><p>Controller reads configuration at startup.</p></li>
-<li><p>Configurable: Configuration changes trigger restart.</p></li>
+<li><p>Configurable: Configuration changes trigger controller restart.</p></li>
 </ul>
 </section>
 </section>

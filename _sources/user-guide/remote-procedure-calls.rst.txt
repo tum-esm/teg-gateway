@@ -110,21 +110,21 @@ Shuts down the TEG gateway host system.
 Terminates the TEG gateway process.
 
 **Description**
-  Stops the gateway docker container, which triggers an automatic restart by Docker.
+  Stops the gateway Docker container, which triggers an automatic restart by Docker.
 
 **Parameters**
   None
 
 **Notes**
-  - Performs a clean restart of the gateway docker container
+  - Performs a clean restart of the gateway Docker container
   - Allows to apply gateway-level configuration or software changes.
-  - The restart is performed by the docker runtime and does not reboot the host system.
+  - The restart is performed by the Docker runtime and does not reboot the host system.
 
 
 ``restart_controller``
 ^^^^^^^^^^^^^^^^^^^^^^
 
-Restarts the controller software docker container.
+Restarts the controller software Docker container.
 
 **Description**
   Stops and restarts the controller Docker container without affecting the gateway runtime.

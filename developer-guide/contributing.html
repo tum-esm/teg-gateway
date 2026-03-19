@@ -109,7 +109,7 @@ autonomous agents may be closed without further review.</p>
 </section>
 <section id="contribution-workflow">
 <h2>Contribution Workflow<a class="headerlink" href="#contribution-workflow" title="Link to this heading">¶</a></h2>
-<p>To keep development transparent and sustainable, most contributions follow an
+<p>To keep development transparent and manageable, most contributions follow an
 <strong>issue-first workflow</strong>.</p>
 <p>In general:</p>
 <ul class="simple">
@@ -183,18 +183,11 @@ not introduce new user-facing features.</p>
 </section>
 <section id="development-principles">
 <h2>Development Principles<a class="headerlink" href="#development-principles" title="Link to this heading">¶</a></h2>
-<p>To keep the gateway reusable across research domains, contributions should
+<p>To keep the software reusable across research domains, contributions should
 follow these principles:</p>
 <ul class="simple">
 <li><p>The gateway provides <strong>infrastructure</strong>, not application logic.</p></li>
-<li><p>Sensor- or domain-specific behavior belongs in the <strong>external controller</strong>.</p></li>
-<li><p>Changes should preserve:</p>
-<ul>
-<li><p>robustness under intermittent connectivity,</p></li>
-<li><p>unattended long-term operation,</p></li>
-<li><p>clear separation of responsibilities.</p></li>
-</ul>
-</li>
+<li><p>Sensor- or domain-specific behavior belongs in the <strong>external controller</strong> (to be implemented by the user).</p></li>
 <li><p>Backward compatibility should be maintained whenever feasible.</p></li>
 </ul>
 <p>If a proposed change significantly affects architecture, persistence, or
