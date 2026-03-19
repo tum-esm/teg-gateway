@@ -1,8 +1,9 @@
 Controller Repository
 =====================
 
-The Controller Repository contains the device-side hardware interface managed by the gateway.
-It is designed as a standalone, versioned component that is built and deployed independently.
+The controller git repository contains the software for interfacing with device-side hardware and is managed by the
+TEG-gateway.
+It is designed to be a standalone, versioned component that is built and deployed independently from the TEG-gateway.
 
 
 Architecture Overview
@@ -10,24 +11,24 @@ Architecture Overview
 
 The controller repository:
 
-- Is a dedicated Git repository (not part of the gateway).
-- Has its own versioning and release cycle.
-- Is fetched and built by the gateway via the OTA update mechanisms.
-- Is executed inside an isolated Docker container.
-- Communicates with the gateway exclusively via a local SQLite database.
+- is a dedicated Git repository (not part of the gateway)
+- has its own versioning and release cycle
+- is fetched and built by the gateway via the ThingsBoard OTA update mechanisms and git remote repository
+- is executed inside an isolated Docker container
+- communicates with the gateway exclusively via a local SQLite database
 
-The gateway is responsible for:
+The TEG-gateway is responsible for:
 
-- Building the controller Docker image.
-- Starting and supervising the container.
-- Monitoring controller health.
-- Restarting the container in case of failure.
+- building the controller Docker image
+- starting and supervising the controller Docker container
+- monitoring controller health
+- restarting the controller Docker container in case of failure
 
 The controller is responsible for:
 
 - Implementing device-specific logic (sensors, actuators, control flows).
-- Writing outbound MQTT messages to the local SQLite message queue (measurements, logs).
-- Maintaining a periodic health check.
+- Writing outbound messages to the local SQLite message queue (measurements, logs).
+- Providing a periodic health check heartbeat message.
 
 Repository Structure
 --------------------
@@ -35,9 +36,9 @@ Repository Structure
 A minimal controller repository must contain:
 
 - ``Dockerfile`` (in repository root)
-- Controller source code
-- SQLite communication implementation
-- Dependency definition (e.g. ``requirements.txt``)
+- controller source code
+- TGE-communication implementation via SQLite
+- dependency definition (e.g. ``requirements.txt``)
 
 A typical structure:
 
@@ -52,7 +53,8 @@ A typical structure:
     └── modules/
 
 
-The gateway automatically builds the Docker image from the root ``Dockerfile``.
+The gateway automatically builds the Docker image from the root ``Dockerfile`` unless a different file is specified
+via environment variables.
 
 Linking the Controller Repository
 ----------------------------------
@@ -63,9 +65,10 @@ The controller repository is linked to the gateway using the environment variabl
 
     TEG_CONTROLLER_GIT_PATH
 
-This variable must point to the controller Git repository.
+This variable must point to the controller Git repository and must have a git remote configured / authenticated for the
+OTA software update feature to function.
 
-Setup details are described in: :doc:`Environment Variables </getting-started/setup>`
+Setup details are described in: :ref:`_setup_env_vars`
 
 SQLite Communication Interface
 ------------------------------
@@ -74,7 +77,7 @@ The controller and gateway communicate via a shared SQLite database.
 
 The controller must:
 
-1. Enqueue outbound MQTT messages into the ``messages`` table.
+1. Enqueue outbound messages into the ``messages`` table.
 2. Periodically update the ``health_check`` table.
 
 Database schema definitions are documented in: :ref:`header-database-schemas` 
@@ -100,14 +103,14 @@ The controller must periodically write a timestamp (milliseconds since epoch) to
 
 ``health_check(id=1, timestamp_ms=<now>)``
 
-The gateway monitors this timestamp to detect stalled or crashed controllers.
+The TEG-gateway monitors this timestamp to detect stalled or crashed controllers.
 
 Failure Handling
 ----------------
 
 Controllers must fail fast and exit the main process if an unrecoverable error occurs.
 
-The gateway will automatically restart the container via a potential backoff. 
+The TEG-gateway will automatically restart the container using an exponential backoff.
 
 Controllers must not:
 
@@ -162,10 +165,10 @@ Controllers can use the gateway Remote File Management to receive configuration 
 
 Typical workflow:
 
-- File is managed via ThingsBoard UI.
-- Gateway syncs file to controller container.
+- File is managed via ThingsBoard UI using shared attributes (see :ref:`_remote-file-management` ).
+- Gateway syncs file to controller data folder (mounted to controller docker container filesystem).
 - Controller reads configuration at startup.
-- Configurable: Configuration changes trigger restart.
+- Configurable: Configuration changes trigger controller restart.
 
 Example Controller
 ------------------

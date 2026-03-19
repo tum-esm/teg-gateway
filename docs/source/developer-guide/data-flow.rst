@@ -27,7 +27,7 @@ Several data flows involve the TEG-Gateway as the central component:
 
     To perform over-the-air (OTA) software updates on the controller, the TEG-gateway fetches commits in a local git
     repository from the configured git remote server. Once fetched, the commits/tags are searched for a match with the
-    desired version and the corresponding commit is checked out locally and used for building a new controller docker image.
+    desired version and the corresponding commit is checked out locally and used for building a new controller Docker image.
     Updates are triggered and managed through the ThingsBoard Web UI.
 
    See :ref:`remote-software-updates` for details.
