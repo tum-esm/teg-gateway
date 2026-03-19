@@ -15,7 +15,7 @@ The main loop is responsible for:
 - Maintaining a persistent MQTT connection to ThingsBoard
 - Forwarding telemetry, logs, and status information
 - Receiving and dispatching remote commands
-- Supervising the controller docker container
+- Supervising the controller Docker container
 - Ensuring local data durability during network interruptions and/or system outages
 
 The loop is designed to run continuously and autonomously without user
@@ -40,10 +40,10 @@ Steady-State Operation (Loop)
 During normal operation, the main loop continuously performs the following tasks:
 
 - Receives shared attribute updates and RPC commands from ThingsBoard
-- Builds and starts the controller software docker container if needed
+- Builds and starts the controller software Docker container if needed
 - Publishes telemetry and log messages received from the controller
 - Triggers remote file synchronization and OTA updates when requested
-- Monitors the health of the controller docker container
+- Monitors the health of the controller Docker container
 - Buffers outgoing and incoming messages in sqlite
 
 All of these activities are coordinated within the main loop to ensure predictable
