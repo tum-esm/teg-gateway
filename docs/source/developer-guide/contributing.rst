@@ -36,7 +36,7 @@ autonomous agents may be closed without further review.
 Contribution Workflow
 ---------------------
 
-To keep development transparent and sustainable, most contributions follow an
+To keep development transparent and manageable, most contributions follow an
 **issue-first workflow**.
 
 In general:
@@ -119,16 +119,11 @@ Refactoring issues should clearly state:
 Development Principles
 ----------------------
 
-To keep the gateway reusable across research domains, contributions should
+To keep the software reusable across research domains, contributions should
 follow these principles:
 
 - The gateway provides **infrastructure**, not application logic.
-- Sensor- or domain-specific behavior belongs in the **external controller**.
-- Changes should preserve:
-
-  - robustness under intermittent connectivity,
-  - unattended long-term operation,
-  - clear separation of responsibilities.
+- Sensor- or domain-specific behavior belongs in the **external controller** (to be implemented by the user).
 - Backward compatibility should be maintained whenever feasible.
 
 If a proposed change significantly affects architecture, persistence, or
