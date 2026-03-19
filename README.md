@@ -1,5 +1,7 @@
 # Telemetry Edge Gateway (TEG Gateway)
 
+![GitHub Release](https://img.shields.io/github/v/release/tum-esm/teg-gateway?display_name=tag)
+![GitHub Pre-Release](https://img.shields.io/github/v/release/tum-esm/teg-gateway?include_prereleases&display_name=tag&logo=pre-release&label=pre-release)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![Python Version](https://img.shields.io/badge/python-3.12%2B-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![mypy](https://github.com/tum-esm/teg-gateway/actions/workflows/test-gateway.yaml/badge.svg)](https://github.com/tum-esm/teg-gateway/actions)
