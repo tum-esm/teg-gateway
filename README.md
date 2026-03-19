@@ -97,3 +97,8 @@ it is implemented as a standalone and reusable component suitable for any sensor
 
 - Patrick Aigner [@patrickjaigner](https://github.com/patrickjaigner)
 - Lars Frölich [@larsfroelich](https://github.com/larsfroelich)
+
+## License
+
+This project, with the notable exception of all files contained in the "demo" folder, is licensed under the AGPL-3.0 
+[LICENSE](LICENSE).
