@@ -27,7 +27,7 @@ bibliography: paper.bib
 # Summary
 
 The TEG-Gateway is a lightweight, general-purpose open source software built for managing and monitoring networks of IoT devices. 
-It integrates with the ThingsBoard platform and was designed specifically to operate distributed sensor networks for scientific research. 
+It integrates with the open-source ThingsBoard cloud platform @ThingsBoard2026 and was designed specifically to operate distributed sensor networks for scientific research. 
 Originally developed for and validated in the ACROPOLIS sensor network, it is network-agnostic and can be used with a wide range of IoT and sensor hardware.
 The TEG-Gateway offers a stable and reusable architectural baseline for scientific sensor networks, enabling researchers to focus on application-specific logic while relying on a proven gateway design for communication, data persistence, and remote management. 
 It is designed to be robust against network and power outages, crashes, and other failures, thus reducing the risk of data loss, system downtime, or the need for physical intervention. 
@@ -43,12 +43,12 @@ Hardware interfacing logic is delegated to a user-defined controller software wh
 # Statement of need
 
 Sensor networks are a critical tool for scientific research across disciplines, enabling long-term, continuous measurements in environments that are often difficult to access.
-However, deploying and maintaining these networks can be challenging due to limited physical access, unreliable network connectivity, the need for remote  management capabilities. 
-As the number of devices increases, the effort required to ensure stable operation grows substantially.
-While sensor hardware and acquisition protocols can vary widely across projects, the underlying infrastructure needs are largely consistent.
+However, deploying and maintaining these networks can be challenging due to limited physical access, unreliable network connectivity, and the need for remote management capabilities. 
+As deployments scale, the effort required to maintain stable operation increases substantially.
+Despite variability in sensor hardware and acquisition protocols, the underlying infrastructure requirements are largely consistent across projects.
 Common requierements are reliable bidirectional communication, persistent data buffering, remote over-the-air updates, and failure recovery without physical access.
 A reusable architectural baseline for scientific sensor networks can reduce duplicated engineering effort, allowing researchers to focus on application-specific logic and deploy new sensor networks more rapidly. 
-Finally, architectural consistency across scientific projects and reuse beyond individual studies or funding cycles are key to maximizing the impact and longevity of research.
+Finally, ensuring architectural consistency across scientific projects and enabling reuse beyond individual studies or funding cycles is helpful to maximize the impact and longevity of the underlying research.
 
 ~~- Scientific sensor networks are widely used across disciplines
 - Typical use cases include long-term, continuous measurements
