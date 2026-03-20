@@ -37,47 +37,14 @@ the risk of data loss, system downtime, or the need for physical intervention.
 Hardware interfacing logic is delegated to a user-defined controller software which interacts with the TEG-Gateway 
 via a message queue, separating infrastructure and application logic.
 
-~~- Introduce the TEG-Gateway as reusable research software
-- Describe it as a lightweight gateway for scientific sensor networks ("The software must have an obvious research application.")
-- Emphasize separation of infrastructure and application logic
-- Highlight controller-agnostic design and reuse across projects
-- Reference validation in a real-world scientific deployment~~
 
 # Statement of need
 
-- Scientific sensor networks are widely used across disciplines
-- Typical use cases include long-term, continuous measurements
-- Deployments often operate unattended for months or years
-- Physical access to devices is limited or costly
-- Network connectivity can be intermittent or unreliable
+Scientific sensor networks are widely used across various research disciplines, typically for long-term, continuous measurements. Such deployments often operate unattended for months or years in remote or inaccessible locations where physical intervention is costly or impossible. Furthermore, network connectivity in these environments is frequently intermittent or unreliable, posing significant challenges for data integrity and system monitoring.
 
-- Sensor networks differ mainly in:
-  - sensor hardware
-  - acquisition protocols
-  - domain-specific processing
-- Infrastructure needs are largely identical across projects
-  - Reliable bidirectional communication with a central platform
-  - Local buffering of data during network outages
-  - Remote configuration and maintenance capabilities
-  - Safe software updates without disrupting measurements
-  - Ability to recover from failures without physical intervention
-- A reusable architectural baseline reduces duplicated engineering effort
+While individual sensor networks vary in their hardware components, acquisition protocols, and domain-specific data processing, their underlying infrastructure requirements are remarkably consistent. Essential needs include reliable bidirectional communication with a central management platform, robust local data buffering to prevent data loss during network outages, and remote configuration capabilities. Additionally, the ability to perform safe software updates without interrupting active measurements and to automatically recover from software failures is critical for maintaining long-term operational stability.
 
-- Research projects can:
-  - Start from a proven gateway design
-  - Implement only controller logic specific to their hardware
-  - Reduce engineering overhead at project start
-  - Deploy new sensor networks more rapidly
-
-- The ThingsBoard Edge Gateway provides:
-  - A stable and reusable gateway architecture
-  - (Clear separation between infrastructure and application logic)
-  - (Persistent connectivity, buffering, and remote management)
-  - (Supervision of an external, application-specific controller)
-
-- Broader impact:
-  - Architectural consistency across scientific projects (setup thingsboard once, deploy many times)
-  - Reuse beyond a single study or funding cycle
+Despite these commonalities, many research projects continue to develop custom gateway solutions from scratch. This leads to substantial duplicated engineering effort and often results in specialized, non-reusable implementations that are difficult to maintain or adapt. Providing a reusable architectural baseline addresses these challenges by decoupling infrastructure management from application-specific logic. By building upon a proven gateway design, research teams can focus their efforts on implementing the controller logic specific to their scientific goals. This approach not only reduces initial engineering overhead and accelerates deployment but also promotes architectural consistency and the long-term reuse of robust infrastructure across multiple studies and funding cycles.
 
 # State of the Field
 
