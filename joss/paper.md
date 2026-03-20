@@ -27,8 +27,7 @@ bibliography: paper.bib
 # Summary
 
 The TEG-Gateway is a lightweight, general-purpose open source software built for managing and monitoring networks of IoT devices. 
-It is built to integrate with the ThingsBoard platform and was designed specifically for operating distributed 
-sensor networks for scientific research. 
+It integrates with the ThingsBoard platform and was designed specifically to operate distributed sensor networks for scientific research. 
 Originally developed for and validated in the ACROPOLIS sensor network, it is network-agnostic and can be used with a wide range of IoT and sensor hardware.
 The TEG-Gateway offers a stable and reusable architectural baseline for scientific sensor networks, enabling researchers to focus on application-specific logic while relying on a proven gateway design for communication, data persistence, and remote management. 
 It is designed to be robust against network and power outages, crashes, and other failures, thus reducing the risk of data loss, system downtime, or the need for physical intervention. 
@@ -44,11 +43,12 @@ Hardware interfacing logic is delegated to a user-defined controller software wh
 # Statement of need
 
 Sensor networks are a critical tool for scientific research across disciplines, enabling long-term, continuous measurements in environments that are often difficult to access.
-However, deploying and maintaining these networks can be challenging due to limited physical access, unreliable network connectivity, and the need for robust data management and remote configuration capabilities. Especially a growing number of devices increase the time effot that needs to be invested by the operator in network administration and system monitoring.
-While sensor hardware and acquisition protocols can vary widely across projects, the underlying infrastructure needs for reliable bidirectional communication, persistent data buffering, remote management, reliable software updates over the air, and failure recovery without physical access are largely consistent. 
+However, deploying and maintaining these networks can be challenging due to limited physical access, unreliable network connectivity, the need for remote  management capabilities. 
+As the number of devices increases, the effort required to ensure stable operation grows substantially.
+While sensor hardware and acquisition protocols can vary widely across projects, the underlying infrastructure needs are largely consistent.
+Common requierements are reliable bidirectional communication, persistent data buffering, remote over-the-air updates, and failure recovery without physical access.
 A reusable architectural baseline for scientific sensor networks can reduce duplicated engineering effort, allowing researchers to focus on application-specific logic and deploy new sensor networks more rapidly. 
-The TEG-Gateway fills exactly that need by providing a stable and reusable gateway architecture that integrates with the ThingsBoard platform.
-Last but not least the TEG-Gateway offers architectural consistency across scientific projects within the same research group and can be reused beyond a single study or funding cycle, thus maximizing the impact of the software and the research it supports.
+Finally, architectural consistency across scientific projects and reuse beyond individual studies or funding cycles are key to maximizing the impact and longevity of research.
 
 ~~- Scientific sensor networks are widely used across disciplines
 - Typical use cases include long-term, continuous measurements
@@ -80,7 +80,7 @@ Last but not least the TEG-Gateway offers architectural consistency across scien
   - (Persistent connectivity, buffering, and remote management)
   - (Supervision of an external, application-specific controller)~~
 
-~~- Broader impact:
+~~ Broader impact:
   - Architectural consistency across scientific projects (setup thingsboard once, deploy many times)
   - Reuse beyond a single study or funding cycle~~
 
