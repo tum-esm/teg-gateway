@@ -1,5 +1,4 @@
 .. _setup:
-
 Setup
 =====
 
@@ -32,7 +31,6 @@ Add the current user to the Docker group and reboot:
 This is needed to avoid permission errors when the gateway tries to run Docker commands.
 
 .. _setup_env_vars:
-
 Environment variables
 ---------------------
 

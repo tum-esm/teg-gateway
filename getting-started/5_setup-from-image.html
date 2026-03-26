@@ -88,26 +88,31 @@
 <p>This section describes how to create an image after the system setup to flash it on multiple systems. This allows to avoid repeating the setup steps on each system.</p>
 <p>Follow installation and setup instructions for a single system first. Skip the provisioning step as this needs to be done for each system individually after flashing the image.</p>
 <p>An image can be created from the prepared system and then flashed onto other systems. The new systems can then be renamed and provisioned individually.</p>
-<p>See <span class="xref std std-ref">_teg_gateway_installation</span> and <span class="xref std std-ref">_setup</span></p>
-<section id="create-backup-image">
-<h2>Create Backup Image<a class="headerlink" href="#create-backup-image" title="Link to this heading">¶</a></h2>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="w">   </span>diskutil<span class="w"> </span>list
-<span class="w">   </span><span class="c1"># diskutil umountDisk /dev/disk[*]</span>
-<span class="w">   </span><span class="c1"># dd status=progress bs=4M  if=/dev/disk[*] | gzip &gt; //Users/.../</span>
-
-
--&gt;<span class="w"> </span>Insert<span class="w"> </span>fresh<span class="w"> </span>SD<span class="w"> </span>Card.
+<section id="once-create-backup-image">
+<h2>(Once) Create Backup Image<a class="headerlink" href="#once-create-backup-image" title="Link to this heading">¶</a></h2>
+<p>-&gt; Prepare system and install necessary software as described in <a class="reference internal" href="3_teg_gateway_installation.html#teg-gateway-installation"><span class="std std-ref">TEG-Gateway Installation</span></a> and <a class="reference internal" href="4_setup.html#setup"><span class="std std-ref">Setup</span></a>
+-&gt; Do not provision the device as this needs to be done for each system individually after flashing the image.
+-&gt; Insert fresh SD Card</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>diskutil<span class="w"> </span>list
+<span class="c1"># replace [*] with the correct disk number of the SD Card (e.g. disk2)</span>
+<span class="c1"># diskutil umountDisk /dev/disk[*]</span>
+<span class="c1"># dd status=progress bs=4M  if=/dev/disk[*] | gzip &gt; //Users/.../</span>
 </pre></div>
 </div>
 </section>
 <section id="flash-image-onto-card">
 <h2>Flash image onto card<a class="headerlink" href="#flash-image-onto-card" title="Link to this heading">¶</a></h2>
+<blockquote>
+<div><p>-&gt; Insert fresh SD Card.</p>
+</div></blockquote>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>diskutil<span class="w"> </span>list
-diskutil<span class="w"> </span>umountDisk<span class="w"> </span>/dev/disk<span class="o">[</span>*<span class="o">]</span>
-gzip<span class="w"> </span>-dc<span class="w"> </span>//Users/.../teg-image.gz<span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>dd<span class="w"> </span><span class="nv">of</span><span class="o">=</span>/dev/disk<span class="o">[</span>*<span class="o">]</span><span class="w"> </span><span class="nv">bs</span><span class="o">=</span>4M<span class="w"> </span><span class="nv">status</span><span class="o">=</span>progress
+<span class="c1"># replace [*] with the correct disk number of the SD Card (e.g. disk2)</span>
+<span class="c1">#diskutil umountDisk /dev/disk[*]</span>
+<span class="c1">#gzip -dc //Users/.../teg-image.gz | sudo dd of=/dev/disk[*] bs=4M status=progress</span>
 </pre></div>
 </div>
-<p>Remove SD Card and insert into RaspberryPi/edge-device.</p>
+<p>-&gt; Remove SD Card and
+-&gt; Insert into RaspberryPi/edge-device.</p>
 </section>
 <section id="optional-change-hostname-raspberry-pi">
 <h2>(Optional) Change Hostname (Raspberry Pi):<a class="headerlink" href="#optional-change-hostname-raspberry-pi" title="Link to this heading">¶</a></h2>
@@ -119,7 +124,7 @@ sudo<span class="w"> </span>reboot
 </section>
 <section id="provision-device">
 <h2>Provision Device<a class="headerlink" href="#provision-device" title="Link to this heading">¶</a></h2>
-<p>The device self-provisions upon its initial MQTT connection with ThingsBoard. See <span class="xref std std-ref">_setup_device_provisioning</span></p>
+<p>The device self-provisions upon its initial MQTT connection with ThingsBoard. See <a class="reference internal" href="4_setup.html#setup-device-provisioning"><span class="std std-ref">Device Provisioning</span></a></p>
 </section>
 </section>
 

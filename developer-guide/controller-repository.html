@@ -140,7 +140,7 @@ via environment variables.</p>
 </div>
 <p>This variable must point to the controller Git repository and must have a git remote configured / authenticated for the
 OTA software update feature to function.</p>
-<p>Setup details are described in: <span class="xref std std-ref">_setup_env_vars</span></p>
+<p>Setup details are described in: <a class="reference internal" href="../getting-started/4_setup.html#setup-env-vars"><span class="std std-ref">Environment variables</span></a></p>
 </section>
 <section id="sqlite-communication-interface">
 <h2>SQLite Communication Interface<a class="headerlink" href="#sqlite-communication-interface" title="Link to this heading">¶</a></h2>
@@ -219,7 +219,7 @@ OTA software update feature to function.</p>
 <p>Controllers can use the gateway Remote File Management to receive configuration files (e.g. <code class="docutils literal notranslate"><span class="pre">config.json</span></code>).</p>
 <p>Typical workflow:</p>
 <ul class="simple">
-<li><p>File is managed via ThingsBoard UI using shared attributes (see <span class="xref std std-ref">_remote-file-management</span> ).</p></li>
+<li><p>File is managed via ThingsBoard UI using shared attributes (see <a class="reference internal" href="../user-guide/remote-file-management.html#remote-file-management"><span class="std std-ref">Remote File Management</span></a> ).</p></li>
 <li><p>Gateway syncs file to controller data folder (mounted to controller docker container filesystem).</p></li>
 <li><p>Controller reads configuration at startup.</p></li>
 <li><p>Configurable: Configuration changes trigger controller restart.</p></li>
