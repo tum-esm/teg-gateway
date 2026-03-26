@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Frölich"
+  given-names: "Lars"
+  orcid: "https://orcid.org/0009-0000-1579-7727"
+- family-names: "Aigner"
+  given-names: "Patrick"
+  orcid: "https://orcid.org/0000-0002-1530-415X"
+- family-names: "Chen"
+  given-names: "Jia"
+  orcid: "https://orcid.org/0000-0002-6350-6610"
+title: "TEG-Gateway"
+version: 1.0.0
+doi: 10.5281/zenodo.19113523
+date-released: 2026-03-19
+url: "https://github.com/tum-esm/teg-gateway"
