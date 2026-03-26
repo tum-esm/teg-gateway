@@ -49,7 +49,7 @@ During normal operation, the main loop continuously performs the following tasks
 All of these activities are coordinated within the main loop to ensure predictable
 and deterministic behavior.
 
-See a detailed description here: :ref:`_architecture`
+See a detailed description here: :ref:`architecture`
 
 Failure Handling and Resilience
 -------------------------------
