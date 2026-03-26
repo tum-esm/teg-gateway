@@ -68,7 +68,7 @@ The controller repository is linked to the gateway using the environment variabl
 This variable must point to the controller Git repository and must have a git remote configured / authenticated for the
 OTA software update feature to function.
 
-Setup details are described in: :ref:`_setup_env_vars`
+Setup details are described in: :ref:`setup_env_vars`
 
 SQLite Communication Interface
 ------------------------------
@@ -165,7 +165,7 @@ Controllers can use the gateway Remote File Management to receive configuration 
 
 Typical workflow:
 
-- File is managed via ThingsBoard UI using shared attributes (see :ref:`_remote-file-management` ).
+- File is managed via ThingsBoard UI using shared attributes (see :ref:`remote-file-management` ).
 - Gateway syncs file to controller data folder (mounted to controller docker container filesystem).
 - Controller reads configuration at startup.
 - Configurable: Configuration changes trigger controller restart.
